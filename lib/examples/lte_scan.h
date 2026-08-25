@@ -172,6 +172,12 @@ const lte_operator_entry_t* lte_scan_lookup_operator(int earfcn);
  */
 void lte_scan_result_str(const lte_scan_result_t* r, char* buf, int buflen);
 
+/**
+ * Set cell search configuration mode.
+ * @param mode 0=fast, 1=full, 2=balance
+ */
+void set_cell_search_mode(int mode);
+
 #ifdef __cplusplus
 }
 #endif

@@ -7,6 +7,7 @@
  *   (default)  Fast scan: PSS + operator table (~1s/EARFCN)
  *   -f         Full scan: PSS + MIB + operator (~8s/cell)
  *   -1         One-step: scan every EARFCN (slow)
+ *   -m         Balance mode: intermediate speed/accuracy (~3s/cell)
  *
  * Exit codes: 0=cells found, 1=no cells, 2=error
  */
@@ -42,6 +43,7 @@ static void usage(const char* prog)
         "  -s earfcn_start  Start EARFCN\n"
         "  -e earfcn_end    End EARFCN\n"
         "  -f               Full scan (MIB decode, slower)\n"
+        "  -m               Balance scan (intermediate speed/accuracy)\n"
         "  -j               JSON output\n"
         "  -q               Quiet (JSON only, no progress)\n"
         "  -h               Help\n\n"
@@ -50,8 +52,9 @@ static void usage(const char* prog)
         "  %s -b 8 -j           JSON output\n"
         "  %s -b 8 -j -q        JSON only, no progress\n"
         "  %s -b 8 -f           Full scan (with MIB decode)\n"
+        "  %s -b 8 -m           Balance scan (intermediate)\n"
         "  %s -b 8 -s 3500 -e 3510\n",
-        prog, prog, prog, prog, prog, prog);
+        prog, prog, prog, prog, prog, prog, prog);
 }
 
 static void print_json(const lte_scan_t* scan, int band, float gain, const char* mode)
@@ -94,21 +97,23 @@ int main(int argc, char* argv[])
     int         earfcn_s    = -1;
     int         earfcn_e    = -1;
     int         full_mode   = 0;
+    int         balance_mode = 0;
     int         json_mode   = 0;
     int         quiet       = 0;
     int         opt;
 
-    while ((opt = getopt(argc, argv, "b:d:a:g:s:e:fjqh")) != -1) {
+    while ((opt = getopt(argc, argv, "b:d:a:g:s:e:fmjqh")) != -1) {
         switch (opt) {
-            case 'b': band      = atoi(optarg); break;
-            case 'd': rf_device = optarg;       break;
-            case 'a': rf_args   = optarg;       break;
-            case 'g': gain      = atof(optarg); break;
-            case 's': earfcn_s  = atoi(optarg); break;
-            case 'e': earfcn_e  = atoi(optarg); break;
-            case 'f': full_mode = 1;            break;
-            case 'j': json_mode = 1;            break;
-            case 'q': quiet     = 1;            break;
+            case 'b': band       = atoi(optarg); break;
+            case 'd': rf_device  = optarg;       break;
+            case 'a': rf_args    = optarg;       break;
+            case 'g': gain       = atof(optarg); break;
+            case 's': earfcn_s   = atoi(optarg); break;
+            case 'e': earfcn_e   = atoi(optarg); break;
+            case 'f': full_mode  = 1;            break;
+            case 'm': balance_mode = 1;          break;
+            case 'j': json_mode  = 1;            break;
+            case 'q': quiet      = 1;            break;
             case 'h': usage(argv[0]); return 0;
             default:  usage(argv[0]); return 2;
         }
@@ -116,6 +121,15 @@ int main(int argc, char* argv[])
 
     if (band < 0) { usage(argv[0]); return 2; }
     if (quiet) json_mode = 1;
+
+    /* Set cell search mode */
+    if (balance_mode) {
+        set_cell_search_mode(2);  /* balance */
+    } else if (full_mode) {
+        set_cell_search_mode(1);  /* full */
+    } else {
+        set_cell_search_mode(0);  /* fast */
+    }
 
     signal(SIGINT, sig_handler);
     signal(SIGTERM, sig_handler);
@@ -153,7 +167,7 @@ int main(int argc, char* argv[])
     }
 
     if (json_mode) {
-        print_json(&scan, band, gain, full_mode ? "full" : "fast");
+        print_json(&scan, band, gain, full_mode ? "full" : (balance_mode ? "balance" : "fast"));
     } else {
         printf("\n=== %d cell(s) on Band %d ===\n\n", n, band);
         for (int i = 0; i < n; i++) {

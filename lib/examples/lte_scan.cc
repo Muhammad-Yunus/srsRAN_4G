@@ -141,6 +141,36 @@ static cell_search_cfg_t cell_detect_config = {
     .force_tdd            = false,
 };
 
+/* Balance mode config: intermediate between fast and full */
+static const cell_search_cfg_t cell_detect_config_balance = {
+    .max_frames_pbch      = 200,      /* Balanced: 200 frames = 1s */
+    .max_frames_pss       = 5,        /* Balanced: 5 frames = 25ms */
+    .nof_valid_pss_frames = 5,        /* Balanced: require 5 valid frames */
+    .init_agc             = 0,
+    .force_tdd            = false,
+};
+
+/* Set cell search config based on mode (1=full, 0=fast, 2=balance) */
+void set_cell_search_mode(int mode)
+{
+    if (mode == 1) {
+        /* Full mode: default SRSRAN values */
+        cell_detect_config.max_frames_pbch      = SRSRAN_DEFAULT_MAX_FRAMES_PBCH;    /* 500 = 2.5s */
+        cell_detect_config.max_frames_pss       = SRSRAN_DEFAULT_MAX_FRAMES_PSS;     /* 10 = 50ms */
+        cell_detect_config.nof_valid_pss_frames = SRSRAN_DEFAULT_NOF_VALID_PSS_FRAMES; /* 10 = 50ms */
+    } else if (mode == 2) {
+        /* Balance mode: intermediate values */
+        cell_detect_config.max_frames_pbch      = cell_detect_config_balance.max_frames_pbch;
+        cell_detect_config.max_frames_pss       = cell_detect_config_balance.max_frames_pss;
+        cell_detect_config.nof_valid_pss_frames = cell_detect_config_balance.nof_valid_pss_frames;
+    } else {
+        /* Fast mode: optimized values */
+        cell_detect_config.max_frames_pbch      = 50;
+        cell_detect_config.max_frames_pss       = 3;
+        cell_detect_config.nof_valid_pss_frames = 3;
+    }
+}
+
 static int decode_mib(srsran_rf_t* rf, srsran_cell_t* cell, float* cfo)
 {
     srsran_ue_mib_sync_t ue_mib;

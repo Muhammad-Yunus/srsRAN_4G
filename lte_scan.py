@@ -29,8 +29,14 @@ PRB_TO_BANDWIDTH = {
     100: 20.0,
 }
 
-def run_lte_scan(band: int, full_mode: bool = False, gain_db: int = 40) -> Dict[str, Any]:
-    """Jalankan lte_scan_example dan kembalikan hasil."""
+def run_lte_scan(band: int, mode: str = 'fast', gain_db: int = 40) -> Dict[str, Any]:
+    """Jalankan lte_scan_example dan kembalikan hasil.
+    
+    Args:
+        band: LTE band number (3, 5, 8, 28, 40)
+        mode: 'fast', 'balance', or 'full'
+        gain_db: SDR gain in dB
+    """
     # Dapatkan path absolut ke binary (berapapun dari mana dipanggil)
     # Resolve symlink to get actual script location
     script_path = os.path.realpath(__file__)
@@ -44,8 +50,10 @@ def run_lte_scan(band: int, full_mode: bool = False, gain_db: int = 40) -> Dict[
         "-g", str(gain_db),
     ]
     
-    if full_mode:
-        cmd.append("-f")  # Full scan mode (MIB decode)
+    if mode == 'full':
+        cmd.append("-f")
+    elif mode == 'balance':
+        cmd.append("-m")
     
     cmd.extend([
         "-j",
@@ -147,8 +155,8 @@ Examples:
   python3 lte_scan.py fast 8 -j           # Short form for --json
         """
     )
-    parser.add_argument('mode', nargs='?', default='fast', choices=['fast', 'full'],
-                       help='Scan mode: fast (default) or full (with MIB decode)')
+    parser.add_argument('mode', nargs='?', default='fast', choices=['fast', 'balance', 'full'],
+                        help='Scan mode: fast (default), balance, or full (with MIB decode)')
     parser.add_argument('band', type=int, nargs='?', default=8,
                        help='LTE band number (default: 8)')
     parser.add_argument('--gain', '-G', type=int, default=40,
@@ -159,7 +167,7 @@ Examples:
     args = parser.parse_args()
     
     print(f"Running lte_scan_example (band={args.band}, gain={args.gain}dB, mode={args.mode})...")
-    scan_result = run_lte_scan(args.band, full_mode=(args.mode == 'full'), gain_db=args.gain)
+    scan_result = run_lte_scan(args.band, mode=args.mode, gain_db=args.gain)
     
     if not scan_result:
         print("Failed to run scan", file=sys.stderr)
