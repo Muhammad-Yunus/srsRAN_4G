@@ -161,7 +161,7 @@ lte-scan fast 8 --json
 lte-scan full 8 --json
 ```
 
-### Example Output
+### Example Output (Band 8)
 
 ```json
 {
@@ -169,26 +169,91 @@ lte-scan full 8 --json
     "band": 8,
     "gain_db": 40,
     "mode": "fast",
-    "total_cells": 3,
-    "timestamp": "2026-08-25T03:47:10.929773+00:00"
+    "total_cells": 4,
+    "timestamp": "2026-08-25T04:37:22+00:00"
   },
   "cells": [
+    {
+      "frequency_mhz": 930.0,
+      "earfcn": 3500,
+      "band": "8",
+      "pci": 2,
+      "mcc": 510,
+      "mnc": 10,
+      "rsrp": -17.0,
+      "operator": "Telkomsel",
+      "country": "Indonesia"
+    },
     {
       "frequency_mhz": 935.0,
       "earfcn": 3550,
       "band": "8",
-      "bandwidth_mhz": null,
       "pci": 243,
-      "cell_id": null,
-      "tac": null,
       "mcc": 510,
       "mnc": 11,
-      "rsrp": -13.8,
-      "rsrq": null,
-      "snr": null,
+      "rsrp": -16.1,
       "operator": "XL Axiata",
-      "country": "Indonesia",
-      "timestamp": "2026-08-25T03:47:10.929773+00:00"
+      "country": "Indonesia"
+    },
+    {
+      "frequency_mhz": 940.0,
+      "earfcn": 3600,
+      "band": "8",
+      "pci": 243,
+      "mcc": 510,
+      "mnc": 11,
+      "rsrp": -15.9,
+      "operator": "XL Axiata",
+      "country": "Indonesia"
+    },
+    {
+      "frequency_mhz": 950.0,
+      "earfcn": 3700,
+      "band": "8",
+      "pci": 25,
+      "mcc": 510,
+      "mnc": 89,
+      "rsrp": -17.8,
+      "operator": "Hutchison 3",
+      "country": "Indonesia"
+    }
+  ]
+}
+```
+
+### Example Output (Band 5)
+
+```json
+{
+  "scan_info": {
+    "band": 5,
+    "gain_db": 40,
+    "mode": "fast",
+    "total_cells": 2,
+    "timestamp": "2026-08-25T04:37:32+00:00"
+  },
+  "cells": [
+    {
+      "frequency_mhz": 879.0,
+      "earfcn": 2500,
+      "band": "5",
+      "pci": 178,
+      "mcc": 510,
+      "mnc": 9,
+      "rsrp": -6.9,
+      "operator": "Smartfren",
+      "country": "Indonesia"
+    },
+    {
+      "frequency_mhz": 884.0,
+      "earfcn": 2550,
+      "band": "5",
+      "pci": 178,
+      "mcc": 510,
+      "mnc": 9,
+      "rsrp": -7.0,
+      "operator": "Smartfren",
+      "country": "Indonesia"
     }
   ]
 }
