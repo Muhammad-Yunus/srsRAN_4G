@@ -1,0 +1,27 @@
+# Build directory
+build/
+
+# Output files
+*.json
+*.log
+*.tar.gz
+*.tgz
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak

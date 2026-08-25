@@ -1,0 +1,139 @@
+nr_cell_search_test: \
+  /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/Scrt1.o \
+  /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/crti.o \
+  /usr/lib/gcc/aarch64-linux-gnu/14/crtbeginS.o \
+  CMakeFiles/nr_cell_search_test.dir/nr_cell_search_test.cc.o \
+  ../libsrsue_phy.a \
+  ../../../../lib/src/common/libsrsran_common.a \
+  ../../../../lib/src/phy/libsrsran_phy.a \
+  ../../../../lib/src/radio/libsrsran_radio.a \
+  /usr/lib/aarch64-linux-gnu/libboost_program_options.so.1.83.0 \
+  ../../../../lib/src/common/libsrsran_common.a \
+  ../../../../lib/src/support/libsupport.a \
+  ../../../../lib/src/srslog/libsrslog.a \
+  /usr/lib/aarch64-linux-gnu/libmbedcrypto.so \
+  ../../../../lib/src/phy/rf/libsrsran_rf.so.25.10.0 \
+  /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libdl.a \
+  ../../../../lib/src/phy/rf/libsrsran_rf_utils.a \
+  ../../../../lib/src/phy/libsrsran_phy.a \
+  /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libpthread.a \
+  /usr/lib/aarch64-linux-gnu/libfftw3f.so \
+  /usr/lib/gcc/aarch64-linux-gnu/14/libstdc++.so \
+  /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
+  /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
+  /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
+  /lib/aarch64-linux-gnu/libm.so.6 \
+  /lib/aarch64-linux-gnu/libmvec.so.1 \
+  /usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so \
+  /usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so \
+  /usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so \
+  /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libgcc_s.so.1 \
+  /usr/lib/gcc/aarch64-linux-gnu/14/libgcc.a \
+  /usr/lib/gcc/aarch64-linux-gnu/14/libgcc.a \
+  /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libc.so \
+  /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libc.so \
+  /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libc.so \
+  /lib/aarch64-linux-gnu/libc.so.6 \
+  /usr/lib/aarch64-linux-gnu/libc_nonshared.a \
+  /lib/ld-linux-aarch64.so.1 \
+  /usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so \
+  /usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so \
+  /usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so \
+  /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libgcc_s.so.1 \
+  /usr/lib/gcc/aarch64-linux-gnu/14/libgcc.a \
+  /usr/lib/gcc/aarch64-linux-gnu/14/libgcc.a \
+  /usr/lib/gcc/aarch64-linux-gnu/14/crtendS.o \
+  /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/crtn.o \
+  /lib/ld-linux-aarch64.so.1
+
+/usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/Scrt1.o:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/crti.o:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/crtbeginS.o:
+
+CMakeFiles/nr_cell_search_test.dir/nr_cell_search_test.cc.o:
+
+../libsrsue_phy.a:
+
+../../../../lib/src/common/libsrsran_common.a:
+
+../../../../lib/src/phy/libsrsran_phy.a:
+
+../../../../lib/src/radio/libsrsran_radio.a:
+
+/usr/lib/aarch64-linux-gnu/libboost_program_options.so.1.83.0:
+
+../../../../lib/src/common/libsrsran_common.a:
+
+../../../../lib/src/support/libsupport.a:
+
+../../../../lib/src/srslog/libsrslog.a:
+
+/usr/lib/aarch64-linux-gnu/libmbedcrypto.so:
+
+../../../../lib/src/phy/rf/libsrsran_rf.so.25.10.0:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libdl.a:
+
+../../../../lib/src/phy/rf/libsrsran_rf_utils.a:
+
+../../../../lib/src/phy/libsrsran_phy.a:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libpthread.a:
+
+/usr/lib/aarch64-linux-gnu/libfftw3f.so:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/libstdc++.so:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so:
+
+/lib/aarch64-linux-gnu/libm.so.6:
+
+/lib/aarch64-linux-gnu/libmvec.so.1:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libgcc_s.so.1:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/libgcc.a:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/libgcc.a:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libc.so:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libc.so:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libc.so:
+
+/lib/aarch64-linux-gnu/libc.so.6:
+
+/usr/lib/aarch64-linux-gnu/libc_nonshared.a:
+
+/lib/ld-linux-aarch64.so.1:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libgcc_s.so.1:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/libgcc.a:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/libgcc.a:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/crtendS.o:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/crtn.o:
+
+/lib/ld-linux-aarch64.so.1:

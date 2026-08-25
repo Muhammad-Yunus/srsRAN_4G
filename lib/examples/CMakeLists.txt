@@ -78,6 +78,13 @@ if(RF_FOUND)
   add_executable(cell_search cell_search.c)
   target_link_libraries(cell_search srsran_phy srsran_common srsran_rf)
 
+  add_executable(lte_plmn_scan lte_plmn_scan.cc)
+  target_link_libraries(lte_plmn_scan srsran_phy srsran_common srsran_rf rrc_asn1)
+
+  add_executable(lte_scan_example lte_scan_example.c lte_scan.cc)
+  target_include_directories(lte_scan_example PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+  target_link_libraries(lte_scan_example srsran_phy srsran_common srsran_rf rrc_asn1 pthread)
+
   add_executable(usrp_capture usrp_capture.c)
   target_link_libraries(usrp_capture srsran_phy srsran_rf)
 

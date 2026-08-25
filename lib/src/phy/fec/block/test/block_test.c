@@ -68,8 +68,8 @@ void parse_args(int argc, char** argv)
 int test(uint32_t block_size)
 {
   struct timeval t[3]                               = {};
-  uint8_t        tx[SRSRAN_FEC_BLOCK_MAX_NOF_BITS]  = {};
-  uint8_t        rx[SRSRAN_FEC_BLOCK_MAX_NOF_BITS]  = {};
+  uint8_t        tx[SRSRAN_FEC_BLOCK_MAX_NOF_BITS + 1]  = {};
+  uint8_t        rx[SRSRAN_FEC_BLOCK_MAX_NOF_BITS + 1]  = {};
   uint8_t        encoded[4 * SRSRAN_FEC_BLOCK_SIZE] = {};
   int16_t        llr_i16[4 * SRSRAN_FEC_BLOCK_SIZE] = {};
   int8_t         llr_i8[4 * SRSRAN_FEC_BLOCK_SIZE]  = {};

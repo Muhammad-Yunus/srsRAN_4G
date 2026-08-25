@@ -539,6 +539,12 @@ if(CMAKE_COMPILER_IS_GNUCXX AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11.2
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-maybe-uninitialized")
 endif()
 
+# Disable stringop-overflow false positives on ARM (e.g. Raspberry Pi)
+if(CMAKE_COMPILER_IS_GNUCXX)
+  ADD_C_COMPILER_FLAG_IF_AVAILABLE("-Wno-stringop-overflow" HAVE_NO_STRINGOP_OVERFLOW_C)
+  ADD_CXX_COMPILER_FLAG_IF_AVAILABLE("-Wno-stringop-overflow" HAVE_NO_STRINGOP_OVERFLOW_CXX)
+endif()
+
 if(CMAKE_C_COMPILER_ID MATCHES "GNU")
   # Increase inlining limit to allow gcc compilation on e.g. RPi2
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --param large-function-growth=1600")

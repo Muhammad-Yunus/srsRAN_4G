@@ -1,0 +1,62 @@
+{
+  "scan_info": {
+    "band": 8,
+    "gain_db": 40,
+    "mode": "fast",
+    "total_cells": 3,
+    "timestamp": "2026-08-25T03:21:55.903268+00:00"
+  },
+  "cells": [
+    {
+      "frequency_mhz": 935.0,
+      "earfcn": 3550,
+      "band": "8",
+      "bandwidth_mhz": null,
+      "pci": 243,
+      "cell_id": null,
+      "tac": null,
+      "mcc": 510,
+      "mnc": 11,
+      "rsrp": -12.6,
+      "rsrq": null,
+      "snr": null,
+      "operator": "XL Axiata",
+      "country": "Indonesia",
+      "timestamp": "2026-08-25T03:21:55.903268+00:00"
+    },
+    {
+      "frequency_mhz": 940.0,
+      "earfcn": 3600,
+      "band": "8",
+      "bandwidth_mhz": null,
+      "pci": 243,
+      "cell_id": null,
+      "tac": null,
+      "mcc": 510,
+      "mnc": 11,
+      "rsrp": -14.5,
+      "rsrq": null,
+      "snr": null,
+      "operator": "XL Axiata",
+      "country": "Indonesia",
+      "timestamp": "2026-08-25T03:21:55.903268+00:00"
+    },
+    {
+      "frequency_mhz": 950.0,
+      "earfcn": 3700,
+      "band": "8",
+      "bandwidth_mhz": null,
+      "pci": 1,
+      "cell_id": null,
+      "tac": null,
+      "mcc": 510,
+      "mnc": 89,
+      "rsrp": -18.0,
+      "rsrq": null,
+      "snr": null,
+      "operator": "Hutchison 3",
+      "country": "Indonesia",
+      "timestamp": "2026-08-25T03:21:55.903268+00:00"
+    }
+  ]
+}
