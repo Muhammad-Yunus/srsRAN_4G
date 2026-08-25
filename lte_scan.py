@@ -12,6 +12,7 @@ Examples:
 """
 
 import json
+import os
 import sys
 import subprocess
 import argparse
@@ -31,7 +32,9 @@ PRB_TO_BANDWIDTH = {
 def run_lte_scan(band: int, full_mode: bool = False) -> Dict[str, Any]:
     """Jalankan lte_scan_example dan kembalikan hasil."""
     # Dapatkan path absolut ke binary (berapapun dari mana dipanggil)
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # Resolve symlink to get actual script location
+    script_path = os.path.realpath(__file__)
+    script_dir = os.path.dirname(script_path)
     binary_path = os.path.join(script_dir, "build", "lib", "examples", "lte_scan_example")
     
     cmd = [
