@@ -42,12 +42,15 @@ def run_lte_scan(band: int, full_mode: bool = False, gain_db: int = 40) -> Dict[
         "-b", str(band),
         "-a", "driver=rtlsdr,index=0",
         "-g", str(gain_db),
-        "-j",
-        "-q"
     ]
     
     if full_mode:
-        cmd.insert(4, "-f")  # Full scan mode
+        cmd.append("-f")  # Full scan mode (MIB decode)
+    
+    cmd.extend([
+        "-j",
+        "-q"
+    ])
     
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
