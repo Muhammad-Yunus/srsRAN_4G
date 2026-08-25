@@ -138,14 +138,22 @@ int lte_scan_coarse(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end
 int lte_scan_fine(lte_scan_t* scan, int earfcn);
 
 /**
- * Fast scan — PSS only + operator table lookup (no MIB decode).
- * ~1s per EARFCN. Results have PCI + operator but no PRB/ports.
- * @return Number of cells found.
- */
-int lte_scan_fast(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end);
+  * Fast scan — PSS only + operator table lookup (no MIB decode).
+  * ~1s per EARFCN. Results have PCI + operator but no PRB/ports.
+  * @return Number of cells found.
+  */
+ int lte_scan_fast(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end);
 
 /**
- * Scan a single EARFCN (PSS + MIB + operator).
+  * Balance scan — intermediate between fast and full.
+  * Step size 6 EARFCNs, better sensitivity than fast (~6 sec for Band 8).
+  * Results have PCI + operator but no PRB/ports.
+  * @return Number of cells found.
+  */
+ int lte_scan_balance(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end);
+
+ /**
+  * Scan a single EARFCN (PSS + MIB + operator).
  * @return 1 if cell found, 0 if no cell, -1 on error.
  */
 int lte_scan_earfcn(lte_scan_t* scan, int earfcn);
@@ -167,16 +175,23 @@ void lte_scan_free(lte_scan_t* scan);
 const lte_operator_entry_t* lte_scan_lookup_operator(int earfcn);
 
 /**
+ * Load operator table from external JSON file.
+ * @param path Path to JSON file, or NULL to use default /home/pi/srsRAN_4G/release/operator_table.json
+ * @return 0 on success, -1 on failure
+ */
+int lte_scan_load_operator_table(const char* path);
+
+/**
  * Get human-readable string for a scan result.
  * Output is written to buf (at least 256 bytes).
  */
 void lte_scan_result_str(const lte_scan_result_t* r, char* buf, int buflen);
 
 /**
- * Set cell search configuration mode.
- * @param mode 0=fast, 1=full, 2=balance
- */
-void set_cell_search_mode(int mode);
+  * Set cell search configuration mode.
+  * @param mode 0=fast (default), 2=balance. Note: full mode uses default srsRAN config directly.
+  */
+ void set_cell_search_mode(int mode);
 
 #ifdef __cplusplus
 }

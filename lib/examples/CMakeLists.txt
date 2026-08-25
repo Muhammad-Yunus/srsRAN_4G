@@ -83,7 +83,7 @@ if(RF_FOUND)
 
   add_executable(lte_scan_example lte_scan_example.c lte_scan.cc)
   target_include_directories(lte_scan_example PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-  target_link_libraries(lte_scan_example srsran_phy srsran_common srsran_rf rrc_asn1 pthread)
+  target_link_libraries(lte_scan_example srsran_phy srsran_common srsran_rf rrc_asn1 pthread json-c)
 
   add_executable(usrp_capture usrp_capture.c)
   target_link_libraries(usrp_capture srsran_phy srsran_rf)

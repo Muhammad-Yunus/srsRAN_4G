@@ -19,6 +19,9 @@
 #include "srsran/srsran.h"
 #include "srsran/asn1/rrc.h"
 
+/* JSON loading support */
+#include <json-c/json.h>
+
 #define SAMP_FREQ     1920000
 #define MHZ           1000000
 #define MAX_CHANNELS  4
@@ -44,7 +47,7 @@ const lte_operator_entry_t lte_operator_table_id[] = {
 
     /* === Band 5 (850 MHz) - DL: 869-894 MHz === */
     /* EARFCN 2400-2649, F_DL = 869 + 0.1 * (EARFCN - 2400) MHz */
-    { 2400, 2499, 510, 10,  false, "Telkomsel",          "Band 5" },
+    { 2400, 2499, 510, 9,   false, "Smartfren",          "Band 5" },
     { 2500, 2599, 510, 9,   false, "Smartfren",          "Band 5" },
     { 2600, 2649, 510, 9,   false, "Smartfren",          "Band 5" },
 
@@ -76,8 +79,41 @@ const lte_operator_entry_t lte_operator_table_id[] = {
 const int lte_operator_table_id_size =
     sizeof(lte_operator_table_id) / sizeof(lte_operator_table_id[0]);
 
+/* External operator table support */
+static const char* OPERATOR_TABLE_PATH = "/home/pi/srsRAN_4G/release/operator_table.json";
+static struct json_object* loaded_table = NULL;
+
 const lte_operator_entry_t* lte_scan_lookup_operator(int earfcn)
 {
+    /* Try external JSON table first */
+    if (loaded_table) {
+        struct json_object* entries = json_object_object_get(loaded_table, "operators");
+        if (entries) {
+            int len = json_object_array_length(entries);
+            for (int i = 0; i < len; i++) {
+                struct json_object* obj = json_object_array_get_idx(entries, i);
+                int min_val, max_val, mcc, mnc;
+                const char* op_name;
+                min_val = json_object_get_int(json_object_object_get(obj, "earfcn_min"));
+                max_val = json_object_get_int(json_object_object_get(obj, "earfcn_max"));
+                mcc = json_object_get_int(json_object_object_get(obj, "mcc"));
+                mnc = json_object_get_int(json_object_object_get(obj, "mnc"));
+                op_name = json_object_get_string(json_object_object_get(obj, "operator"));
+                if (earfcn >= min_val && earfcn <= max_val) {
+                    /* Return a static entry with these values */
+                    static lte_operator_entry_t result;
+                    result.earfcn_min = min_val;
+                    result.earfcn_max = max_val;
+                    result.mcc = mcc;
+                    result.mnc = mnc;
+                    static char op_buf[LTE_SCAN_OP_NAME_LEN]; strncpy(op_buf, (op_name ? op_name : "Unknown"), LTE_SCAN_OP_NAME_LEN - 1); result.operator_name = op_buf;
+                    return &result;
+                }
+            }
+        }
+    }
+
+    /* Fallback to hardcoded table */
     for (int i = 0; i < lte_operator_table_id_size; i++) {
         if (earfcn >= lte_operator_table_id[i].earfcn_min &&
             earfcn <= lte_operator_table_id[i].earfcn_max) {
@@ -85,6 +121,22 @@ const lte_operator_entry_t* lte_scan_lookup_operator(int earfcn)
         }
     }
     return NULL;
+}
+
+/* Load operator table from JSON file */
+int lte_scan_load_operator_table(const char* path)
+{
+    if (!path) path = OPERATOR_TABLE_PATH;
+
+    char* err_msg = NULL;
+    loaded_table = json_object_from_file(path);
+    if (!loaded_table) {
+        fprintf(stderr, "[lte_scan] Failed to load operator table from %s: %s\n", path, err_msg);
+        if (err_msg) free(err_msg);
+        return -1;
+    }
+    fprintf(stderr, "[lte_scan] Loaded operator table from %s\n", path);
+    return 0;
 }
 
 void lte_scan_result_str(const lte_scan_result_t* r, char* buf, int buflen)
@@ -143,14 +195,14 @@ static cell_search_cfg_t cell_detect_config = {
 
 /* Balance mode config: intermediate between fast and full */
 static const cell_search_cfg_t cell_detect_config_balance = {
-    .max_frames_pbch      = 200,      /* Balanced: 200 frames = 1s */
-    .max_frames_pss       = 5,        /* Balanced: 5 frames = 25ms */
-    .nof_valid_pss_frames = 5,        /* Balanced: require 5 valid frames */
+    .max_frames_pbch      = 150,      /* Balance: 150 frames = 0.75s */
+    .max_frames_pss       = 6,        /* Balance: 6 frames = 30ms */
+    .nof_valid_pss_frames = 5,        /* Balance: require 5 valid frames */
     .init_agc             = 0,
     .force_tdd            = false,
 };
 
-/* Set cell search config based on mode (1=full, 0=fast, 2=balance) */
+/* Set cell search config based on mode (0=fast, 2=balance). Full mode uses default SRSRAN values directly. */
 void set_cell_search_mode(int mode)
 {
     if (mode == 1) {
@@ -750,6 +802,94 @@ int lte_scan_fast(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end)
 
     srsran_ue_cellsearch_free(&cs);
     srsran_rf_stop_rx_stream(rf);
+    return scan->nof_results;
+}
+
+/* Balance mode: intermediate between fast and full
+ * - Step size: 25 EARFCNs (faster than full but more sensitive than fast)
+ * - PSS frames: 4 (better detection than fast)
+ * - No MIB decode (faster than full)
+ * Target time: ~10 seconds for Band 8 */
+int lte_scan_balance(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end)
+{
+    if (!scan->rf_handle) {
+        return -1;
+    }
+
+    srsran_rf_t* rf = (srsran_rf_t*)scan->rf_handle;
+    srsran_earfcn_t channels[LTE_SCAN_MAX_EARFCN];
+
+    int nof_freqs = srsran_band_get_fd_band(band, channels, earfcn_start, earfcn_end, LTE_SCAN_MAX_EARFCN);
+    if (nof_freqs <= 0) {
+        fprintf(stderr, "[lte_scan] No EARFCNs for band %d\n", band);
+        return -1;
+    }
+
+    printf("[lte_scan] Balance scan Band %d: %d EARFCNs (%.1f - %.1f MHz)\n",
+           band, nof_freqs, channels[0].fd, channels[nof_freqs - 1].fd);
+
+    scan->nof_results = 0;
+    scan->stop = false;
+
+    /* Step size: 6 EARFCNs = 0.6 MHz — target ~8-9 cells dengan waktu ~10s */
+    int step = 6;
+
+    /* Start stream once before the loop — avoids aarch64 mutex bug */
+    srsran_rf_set_rx_srate(rf, (double)SAMP_FREQ);
+    srsran_rf_set_rx_freq(rf, 0, (double)channels[0].fd * MHZ);
+    srsran_rf_start_rx_stream(rf, false);
+
+    srsran_ue_cellsearch_t cs;
+    if (srsran_ue_cellsearch_init(&cs, cell_detect_config.max_frames_pss, recv_wrapper, (void*)rf)) {
+        srsran_rf_stop_rx_stream(rf);
+        return -1;
+    }
+    srsran_ue_cellsearch_set_nof_valid_frames(&cs, cell_detect_config.nof_valid_pss_frames);
+
+    int scanned = 0;
+    for (int i = 0; i < nof_freqs && !scan->stop; i += step) {
+        scanned++;
+        printf("\r[%3d/%d] EARFCN %d ... ", scanned, (nof_freqs + step - 1) / step, channels[i].id);
+        fflush(stdout);
+
+        srsran_rf_set_rx_freq(rf, 0, (double)channels[i].fd * MHZ);
+
+        srsran_ue_cellsearch_result_t found_cells[3];
+        memset(found_cells, 0, sizeof(found_cells));
+        int n = srsran_ue_cellsearch_scan(&cs, found_cells, NULL);
+
+        if (n > 0) {
+            for (int j = 0; j < 3 && scan->nof_results < LTE_SCAN_MAX_RESULTS; j++) {
+                if (found_cells[j].psr > scan->cfg.psr_threshold) {
+                    lte_scan_result_t* out = &scan->results[scan->nof_results];
+                    memset(out, 0, sizeof(*out));
+                    out->earfcn   = channels[i].id;
+                    out->freq_mhz = channels[i].fd;
+                    out->pci      = found_cells[j].cell_id;
+                    out->psr      = found_cells[j].psr;
+                    out->rsrp_dbm = srsran_convert_power_to_dB(found_cells[j].peak);
+
+                    const lte_operator_entry_t* op = lte_scan_lookup_operator(channels[i].id);
+                    if (op) {
+                        out->mcc     = op->mcc;
+                        out->mnc     = op->mnc;
+                        out->mnc_3digit = op->mnc_3digit;
+                        strncpy(out->operator_name, op->operator_name, LTE_SCAN_OP_NAME_LEN - 1);
+                    } else {
+                        strncpy(out->operator_name, "Unknown", LTE_SCAN_OP_NAME_LEN - 1);
+                    }
+                    scan->nof_results++;
+                    break;
+                }
+            }
+        }
+    }
+
+    srsran_ue_cellsearch_free(&cs);
+    srsran_rf_stop_rx_stream(rf);
+
+    printf("\n[lte_scan] Balance scan done: %d cell(s) on Band %d (%.1f sec)\n",
+           scan->nof_results, band, (float)scanned * 0.4);
     return scan->nof_results;
 }
 

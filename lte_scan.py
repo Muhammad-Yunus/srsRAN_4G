@@ -3,12 +3,13 @@
 Converter untuk output lte_scan_example ke format JSON target.
 
 Usage:
-  python3 convert_scan.py [fast|full] [band] [--json]
-  
+  python3 lte_scan.py [fast|balance|full] [band] [--json]
+
 Examples:
-  python3 convert_scan.py fast 8              # Output as-is (raw lte_scan_example JSON)
-  python3 convert_scan.py full 8 --json       # Output converted to target format
-  python3 convert_scan.py fast 8 --json       # Quick scan with converted output
+  python3 lte_scan.py fast 8              # Quick scan (PSS only) - ~2s
+  python3 lte_scan.py balance 8           # Balanced scan - ~10s
+  python3 lte_scan.py full 8 --json       # Full scan (MIB decode) - ~30s
+  python3 lte_scan.py fast 8 -j           # Short form for --json
 """
 
 import json
@@ -149,10 +150,11 @@ def main():
         description='Convert lte_scan_example output to target JSON format',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Examples:
-  python3 lte_scan.py fast 8              # Raw output (as-is from lte_scan_example)
-  python3 lte_scan.py full 8 --json       # Converted to target format
-  python3 lte_scan.py fast 8 -j           # Short form for --json
+  Examples:
+    python3 lte_scan.py fast 8              # Raw output (as-is from lte_scan_example)
+    python3 lte_scan.py balance 8           # Balanced scan output
+    python3 lte_scan.py full 8 --json       # Converted to target format
+    python3 lte_scan.py fast 8 -j           # Short form for --json
         """
     )
     parser.add_argument('mode', nargs='?', default='fast', choices=['fast', 'balance', 'full'],

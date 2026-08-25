@@ -122,13 +122,14 @@ int main(int argc, char* argv[])
     if (band < 0) { usage(argv[0]); return 2; }
     if (quiet) json_mode = 1;
 
+    /* Load external operator table */
+    lte_scan_load_operator_table(NULL);
+
     /* Set cell search mode */
     if (balance_mode) {
         set_cell_search_mode(2);  /* balance */
-    } else if (full_mode) {
-        set_cell_search_mode(1);  /* full */
     } else {
-        set_cell_search_mode(0);  /* fast */
+        set_cell_search_mode(0);  /* fast (default, including full) */
     }
 
     signal(SIGINT, sig_handler);
@@ -161,6 +162,9 @@ int main(int argc, char* argv[])
             }
         }
         n = scan.nof_results;
+    } else if (balance_mode) {
+        if (!quiet) fprintf(stderr, "Balance scan Band %d...\n", band);
+        n = lte_scan_balance(&scan, band, earfcn_s, earfcn_e);
     } else {
         if (!quiet) fprintf(stderr, "Fast scan Band %d...\n", band);
         n = lte_scan_fast(&scan, band, earfcn_s, earfcn_e);
