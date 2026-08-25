@@ -36,7 +36,8 @@ lte-scan fast 8 --json
 - **CLI tool** - simple `lte-scan` command
 - **JSON output** - easy integration with other tools
 - **Operator identification** - detects Telkomsel, XL, Indosat, Hutchison 3
-- **Band 8 support** - 900 MHz LTE scanning
+- **Band 8 support** - 900 MHz LTE scanning (XL, Telkomsel, Indosat, Hutchison 3)
+- **Band 5 support** - 850 MHz LTE scanning (Smartfren)
 
 ## Hardware Requirements
 
@@ -204,12 +205,14 @@ lte-scan full 8 --json
 
 ### Supported Bands
 
-| Band | Frequency | Status |
-|------|-----------|--------|
-| Band 8 | 900 MHz | ✅ Tested |
-| Band 3 | 1800 MHz | ⚠️ R820T limit (~1766 MHz) |
-| Band 5 | 850 MHz | ✅ Should work |
-| Band 20 | 800 MHz | ✅ Should work |
+| Band | Frequency | Status | Operators (Indonesia) |
+|------|-----------|--------|----------------------|
+| Band 8 | 900 MHz | ✅ Tested & Working | Telkomsel, XL Axiata, Indosat Ooredoo, Hutchison 3 |
+| Band 5 | 850 MHz | ✅ Tested & Working | Smartfren |
+| Band 20 | 800 MHz | ⚠️ Limited | PLL issues on some RTL-SDR v3 units |
+| Band 3 | 1800 MHz | ❌ Not Supported | Exceeds R820T tuner limit (~1766 MHz) |
+
+**Note:** RTL-SDR v3 (R820T tuner) has frequency range **24-1766 MHz**. This limits LTE scanning to lower bands only.
 
 ---
 
