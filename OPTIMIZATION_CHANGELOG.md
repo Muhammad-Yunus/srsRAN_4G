@@ -12,7 +12,9 @@ Optimasi berhasil mengurangi waktu scan Band 8 dari **2m38s menjadi 31 detik** (
 
 | Metric | Before | After | Improvement |
 |--------|--------|-------|-------------|
-| Total Time | 158s | 31s | **5.1x faster** |
+| Total Time (Full) | 158s | 31s | **5.1x faster** |
+| Total Time (Balance) | N/A | 3s | New mode |
+| Total Time (Fast) | N/A | 1.6s | New mode |
 | MIB Timeout | 2.5s | 0.25s | 10x faster |
 | PSS Detection | 50ms | 15ms | 3.3x faster |
 | SIB1 Attempts | 300 | 0 | Disabled |
@@ -72,6 +74,86 @@ static cell_search_cfg_t cell_detect_config = {
 
 // AFTER:
 .try_sib1      = false,  /* Disabled for speed - SIB1 requires wider BW than RTL-SDR can provide */
+```
+
+### 2. File: `lib/examples/lte_scan.cc` (Balance Mode Support)
+
+#### Change C: Added Balance Mode Configuration
+
+```c
+/* Balance mode config: intermediate between fast and full */
+static const cell_search_cfg_t cell_detect_config_balance = {
+    .max_frames_pbch      = 200,      /* Balanced: 200 frames = 1s */
+    .max_frames_pss       = 5,        /* Balanced: 5 frames = 25ms */
+    .nof_valid_pss_frames = 5,        /* Balanced: require 5 valid frames */
+    .init_agc             = 0,
+    .force_tdd            = false,
+};
+
+/* Set cell search config based on mode (1=full, 0=fast, 2=balance) */
+void set_cell_search_mode(int mode)
+{
+    if (mode == 1) {
+        /* Full mode: default SRSRAN values */
+        cell_detect_config.max_frames_pbch      = SRSRAN_DEFAULT_MAX_FRAMES_PBCH;    /* 500 = 2.5s */
+        cell_detect_config.max_frames_pss       = SRSRAN_DEFAULT_MAX_FRAMES_PSS;     /* 10 = 50ms */
+        cell_detect_config.nof_valid_pss_frames = SRSRAN_DEFAULT_NOF_VALID_PSS_FRAMES; /* 10 = 50ms */
+    } else if (mode == 2) {
+        /* Balance mode: intermediate values */
+        cell_detect_config.max_frames_pbch      = cell_detect_config_balance.max_frames_pbch;
+        cell_detect_config.max_frames_pss       = cell_detect_config_balance.max_frames_pss;
+        cell_detect_config.nof_valid_pss_frames = cell_detect_config_balance.nof_valid_pss_frames;
+    } else {
+        /* Fast mode: optimized values */
+        cell_detect_config.max_frames_pbch      = 50;
+        cell_detect_config.max_frames_pss       = 3;
+        cell_detect_config.nof_valid_pss_frames = 3;
+    }
+}
+```
+
+### 3. File: `lib/examples/lte_scan.h`
+
+Added function declaration for `set_cell_search_mode()`:
+
+```c
+/**
+ * Set cell search configuration mode.
+ * @param mode 0=fast, 1=full, 2=balance
+ */
+void set_cell_search_mode(int mode);
+```
+
+### 4. File: `lib/examples/lte_scan_example.c`
+
+#### Change D: Added `-m` flag for balance mode
+
+```c
+while ((opt = getopt(argc, argv, "b:d:a:g:s:e:fmjqh")) != -1) {
+    switch (opt) {
+        case 'f': full_mode  = 1;            break;
+        case 'm': balance_mode = 1;          break;  /* NEW */
+        // ...
+    }
+}
+
+/* Set cell search mode */
+if (balance_mode) {
+    set_cell_search_mode(2);  /* balance */
+} else if (full_mode) {
+    set_cell_search_mode(1);  /* full */
+} else {
+    set_cell_search_mode(0);  /* fast */
+}
+```
+
+### 5. File: `lte_scan.py`
+
+Updated Python wrapper to support balance mode:
+
+```python
+parser.add_argument('mode', nargs='?', default='fast', choices=['fast', 'balance', 'full'],
+                    help='Scan mode: fast (default), balance, or full (with MIB decode)')
 ```
 
 ---
@@ -212,6 +294,12 @@ sys     0m0.284s
 ```
 **Use case**: Quick scan, real-time monitoring
 
+### For Balanced Detection
+```bash
+./build/lib/examples/lte_scan_example -b 8 -a "driver=rtlsdr,index=0" -g 40 -m -j -q
+```
+**Use case**: Good accuracy with moderate scan time
+
 ### For Detailed Analysis
 ```bash
 ./build/lib/examples/lte_scan_example -b 8 -a "driver=rtlsdr,index=0" -g 40 -f -j -q
@@ -253,7 +341,10 @@ sys     0m0.284s
 
 | File | Lines Changed | Description |
 |------|---------------|-------------|
-| `lib/examples/lte_scan.cc` | 136-142, 397 | Cell search config & SIB1 toggle |
+| `lib/examples/lte_scan.cc` | 136-142, 397, 144-168 | Cell search config & SIB1 toggle |
+| `lib/examples/lte_scan.h` | 173-179 | Added `set_cell_search_mode()` declaration |
+| `lib/examples/lte_scan_example.c` | 32-56, 88-119 | Added `-m` flag for balance mode |
+| `lte_scan.py` | 32-55, 150 | Updated Python wrapper for balance mode |
 | `build/lib/examples/lte_scan_example` | - | Rebuilt binary |
 
 ---
@@ -300,6 +391,6 @@ index abc123..def456 100644
 
 ---
 
-**Document Version**: 1.0  
+**Document Version**: 2.0  
 **Last Updated**: 25 Agustus 2026  
 **Status**: ✅ Production Ready

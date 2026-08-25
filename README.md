@@ -157,6 +157,9 @@ lte-scan fast 8
 # Scan with JSON conversion
 lte-scan fast 8 --json
 
+# Balanced scan (intermediate speed/accuracy) - ~3 seconds
+lte-scan balance 8 --json
+
 # Full scan (with MIB decode) - ~29 seconds
 lte-scan full 8 --json
 ```
@@ -265,6 +268,8 @@ lte-scan full 8 --json
 |---------|-------------|------|
 | `lte-scan fast 8` | Quick scan (PSS only) | ~1.6s |
 | `lte-scan fast 8 --json` | Quick scan with converted output | ~1.6s |
+| `lte-scan balance 8` | Balanced scan (intermediate) | ~3s |
+| `lte-scan balance 8 --json` | Balanced scan with converted output | ~3s |
 | `lte-scan full 8` | Full scan (PSS + MIB) | ~29s |
 | `lte-scan full 8 --json` | Full scan with converted output | ~29s |
 
@@ -296,7 +301,16 @@ lte-scan full 8 --json
 | Mode | Before Optimization | After Optimization | Speedup |
 |------|-------------------|-------------------|---------|
 | Full Scan | 2m38s (158s) | 29s | **5.4x faster** |
+| Balance Scan | N/A | 3s | **N/A** |
 | Fast Scan | N/A | 1.6s | **N/A** |
+
+### Optimization Modes Explained
+
+| Mode | Use Case | Parameters |
+|------|----------|------------|
+| `fast` | Quick monitoring, real-time | PSS only, minimal frames |
+| `balance` | Balanced detection | Intermediate frames, good accuracy |
+| `full` | Detailed analysis | Full MIB decode, max sensitivity |
 
 ### Optimizations Applied
 
