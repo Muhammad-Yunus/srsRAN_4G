@@ -274,10 +274,20 @@ lte-scan full 8 --json
 |------|-----------|--------|----------------------|
 | Band 8 | 900 MHz | ✅ Tested & Working | Telkomsel, XL Axiata, Indosat Ooredoo, Hutchison 3 |
 | Band 5 | 850 MHz | ✅ Tested & Working | Smartfren |
-| Band 20 | 800 MHz | ⚠️ Limited | PLL issues on some RTL-SDR v3 units |
+| Band 20 | 800 MHz | ❌ Not Available | No LTE operators use this band in Indonesia |
 | Band 3 | 1800 MHz | ❌ Not Supported | Exceeds R820T tuner limit (~1766 MHz) |
 
 **Note:** RTL-SDR v3 (R820T tuner) has frequency range **24-1766 MHz**. This limits LTE scanning to lower bands only.
+
+### Indonesia Band Availability
+
+| Band | Freq | Status | Operators in Indonesia |
+|------|------|--------|----------------------|
+| Band 8 | 900 MHz | ✅ Active | Telkomsel, XL, Indosat, Hutchison 3 |
+| Band 5 | 850 MHz | ✅ Active | Smartfren |
+| Band 20 | 800 MHz | ❌ Not Deployed | None |
+| Band 3 | 1800 MHz | ✅ Active (not scannable) | Telkomsel, XL, Indosat, Hutchison 3 |
+| Band 40 | 2300 MHz | ✅ Active (not scannable) | Telkomsel, XL, Indosat, Hutchison 3, Smartfren |
 
 ---
 
