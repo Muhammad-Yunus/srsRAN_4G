@@ -2,10 +2,32 @@
 
 [![Build Status](https://github.com/srsran/srsRAN_4G/actions/workflows/ccpp.yml/badge.svg)](https://github.com/srsran/srsRAN_4G/actions/workflows/ccpp.yml)
 [![CodeQL](https://github.com/srsran/srsRAN_4G/actions/workflows/codeql.yml/badge.svg)](https://github.com/srsran/srsRAN_4G/actions/workflows/codeql.yml)
+[![Latest Release](https://img.shields.io/github/v/release/Muhammad-Yunus/srsRAN_4G?label=Release)](https://github.com/Muhammad-Yunus/srsRAN_4G/releases/tag/cli-release-v1.0)
 
 **Optimized LTE cell scanner for RTL-SDR v3 on Raspberry Pi**
 
 This fork of srsRAN_4G includes optimizations for fast LTE cell scanning with RTL-SDR dongles, featuring a 5.1x performance improvement and a convenient CLI tool for quick network analysis.
+
+## 🚀 Quick Install (Pre-built Binary)
+
+**No compilation needed!** Download the pre-built binary and start scanning in under 5 minutes:
+
+```bash
+# 1. Download
+wget https://github.com/Muhammad-Yunus/srsRAN_4G/releases/download/cli-release-v1.0/srsran_rpi_aarch64_v1.0.tar.gz
+
+# 2. Extract & Install
+tar xzf srsran_rpi_aarch64_v1.0.tar.gz
+cd srsran-release
+sudo ./install.sh
+
+# 3. Scan!
+lte-scan fast 8 --json
+```
+
+📖 **Full installation guide:** [INSTALL.md](INSTALL.md)
+
+---
 
 ## Features
 
