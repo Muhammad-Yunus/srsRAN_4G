@@ -30,8 +30,12 @@ PRB_TO_BANDWIDTH = {
 
 def run_lte_scan(band: int, full_mode: bool = False) -> Dict[str, Any]:
     """Jalankan lte_scan_example dan kembalikan hasil."""
+    # Dapatkan path absolut ke binary (berapapun dari mana dipanggil)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    binary_path = os.path.join(script_dir, "build", "lib", "examples", "lte_scan_example")
+    
     cmd = [
-        "./build/lib/examples/lte_scan_example",
+        binary_path,
         "-b", str(band),
         "-a", "driver=rtlsdr,index=0",
         "-g", "40",
