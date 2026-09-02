@@ -154,10 +154,10 @@ static const cell_search_cfg_t cell_detect_config_balance = {
 void set_cell_search_mode(int mode)
 {
     if (mode == 1) {
-        /* Full mode: default SRSRAN values */
-        cell_detect_config.max_frames_pbch      = SRSRAN_DEFAULT_MAX_FRAMES_PBCH;    /* 500 = 2.5s */
-        cell_detect_config.max_frames_pss       = SRSRAN_DEFAULT_MAX_FRAMES_PSS;     /* 10 = 50ms */
-        cell_detect_config.nof_valid_pss_frames = SRSRAN_DEFAULT_NOF_VALID_PSS_FRAMES; /* 10 = 50ms */
+        /* Full mode: optimized values with MIB decode (same as fast, but enables MIB) */
+        cell_detect_config.max_frames_pbch      = 50;          /* 50 frames = 250ms (optimized from 500) */
+        cell_detect_config.max_frames_pss       = 3;           /* 3 frames = 15ms (optimized from 10) */
+        cell_detect_config.nof_valid_pss_frames = 3;           /* require 3 valid frames */
     } else if (mode == 2) {
         /* Balance mode: intermediate values */
         cell_detect_config.max_frames_pbch      = cell_detect_config_balance.max_frames_pbch;
