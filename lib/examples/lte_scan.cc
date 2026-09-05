@@ -56,40 +56,36 @@ using namespace asn1::rrc;
 const lte_operator_entry_t lte_operator_table_id[] = {
     /* === Band 3 (1800 MHz) - DL: 1805-1880 MHz === */
     /* EARFCN 1200-1949, F_DL = 1805 + 0.1 * (EARFCN - 1200) MHz */
-    { 1200, 1399, 510, 10,  false, "Telkomsel",          "Band 3" },
-    { 1400, 1499, 510, 11,  false, "XL Axiata",          "Band 3" },
-    { 1500, 1599, 510, 11,  false, "XL Axiata (AXIS)",   "Band 3" },
-    { 1600, 1799, 510, 21,  false, "Indosat Ooredoo",    "Band 3" },
-    { 1800, 1949, 510, 89,  false, "Hutchison 3",        "Band 3" },
+    /* Post-merger (Jan 2022): Indosat & Tri spectrum refarmed under IOH (MNC 01) */
+    { 1200, 1399, 510, 1,   false, "Telkomsel",                 "Band 3" },
+    { 1400, 1599, 510, 8,   false, "XL Axiata",                 "Band 3" },
+    { 1600, 1949, 510, 1,   false, "Indosat Ooredoo Hutchison", "Band 3" },
 
     /* === Band 5 (850 MHz) - DL: 869-894 MHz === */
     /* EARFCN 2400-2649, F_DL = 869 + 0.1 * (EARFCN - 2400) MHz */
     /* In Indonesia, Band 5 is exclusively used by Smartfren (MNC 9) */
-    { 2400, 2649, 510, 9,   false, "Smartfren",          "Band 5" },
+    { 2400, 2649, 510, 9,   false, "Smartfren",                 "Band 5" },
 
     /* === Band 8 (900 MHz) - DL: 925-960 MHz === */
     /* EARFCN 3450-3799, F_DL = 925 + 0.1 * (EARFCN - 3450) MHz */
-    { 3450, 3499, 510, 10,  false, "Telkomsel",          "Band 8" },
-    { 3500, 3549, 510, 10,  false, "Telkomsel",          "Band 8" },
-    { 3550, 3599, 510, 11,  false, "XL Axiata",          "Band 8" },
-    { 3600, 3649, 510, 11,  false, "XL Axiata",          "Band 8" },
-    { 3650, 3699, 510, 21,  false, "Indosat Ooredoo",    "Band 8" },
-    { 3700, 3749, 510, 89,  false, "Hutchison 3",        "Band 8" },
-    { 3750, 3799, 510, 89,  false, "Hutchison 3",        "Band 8" },
+    /* Post-merger: Indosat & Tri blocks consolidated under MNC 01 */
+    { 3450, 3549, 510, 1,   false, "Telkomsel",                 "Band 8" },
+    { 3550, 3649, 510, 8,   false, "XL Axiata",                 "Band 8" },
+    { 3650, 3799, 510, 1,   false, "Indosat Ooredoo Hutchison", "Band 8" },
 
     /* === Band 28 (700 MHz) - DL: 758-803 MHz === */
-    /* EARFCN 9000-9649, F_DL = 758 + 0.1 * (EARFCN - 9000) MHz */
-    { 9000, 9149, 510, 10,  false, "Telkomsel",          "Band 28" },
-    { 9150, 9299, 510, 21,  false, "Indosat Ooredoo",    "Band 28" },
-    { 9300, 9449, 510, 11,  false, "XL Axiata",          "Band 28" },
-    { 9450, 9599, 510, 89,  false, "Hutchison 3",        "Band 28" },
+    /* EARFCN 9210-9649, F_DL = 758 + 0.1 * (EARFCN - 9210) MHz */
+    /* NOTE: 3GPP offset is 9210, NOT 9000 */
+    { 9210, 9359, 510, 1,   false, "Telkomsel",                 "Band 28" },
+    { 9360, 9509, 510, 1,   false, "Indosat Ooredoo Hutchison", "Band 28" },
+    { 9510, 9649, 510, 8,   false, "XL Axiata",                 "Band 28" },
 
     /* === Band 40 (2300 MHz TDD) - EARFCN 38650-39649 === */
-    { 38650, 38799, 510, 10,  false, "Telkomsel",         "Band 40" },
-    { 38800, 38949, 510, 11,  false, "XL Axiata",         "Band 40" },
-    { 38950, 39099, 510, 21,  false, "Indosat Ooredoo",   "Band 40" },
-    { 39100, 39249, 510, 89,  false, "Hutchison 3",       "Band 40" },
-    { 39250, 39649, 510, 8,   false, "Smartfren",          "Band 40" },
+    /* Band 40 is EXCLUSIVELY owned by Telkomsel and Smartfren in Indonesia */
+    /* XL, Indosat, and Tri do NOT have spectrum in this band */
+    { 38650, 39049, 510, 1,  false, "Telkomsel",                 "Band 40" },
+    { 39050, 39649, 510, 9,  false, "Smartfren",                 "Band 40" },
+    { 39050, 39649, 510, 28, false, "Smartfren",                 "Band 40" },
 };
 
 const int lte_operator_table_id_size =
