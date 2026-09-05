@@ -193,43 +193,7 @@ static int earfcn_to_freq(int earfcn, float* freq_mhz)
     return -1;
 }
 
-/* --- Operator Lookup --- */
-/*
- * OPERATOR LOOKUP FUNCTION
- *
- * Linear search through Indonesia operator table.
- * Returns NULL if EARFCN not found (returns "Unknown" operator).
- *
- * Why linear search?
- * - Table has ~30 entries — negligible lookup time
- * - Simpler than hash map for small static tables
- * - No dynamic allocation needed
- *
- * Future optimization: If adding 50+ operators, switch to binary search.
- */
-const lte_operator_entry_t* lte_scan_lookup_operator(int earfcn)
-{
-    for (int i = 0; i < lte_operator_table_id_size; i++) {
-        if (earfcn >= lte_operator_table_id[i].earfcn_min &&
-            earfcn <= lte_operator_table_id[i].earfcn_max) {
-            return &lte_operator_table_id[i];
-        }
-    }
-    return NULL;
-}
-
-/* --- Result Formatting --- */
-/*
- * FORMAT SCAN RESULT AS HUMAN-READABLE STRING
- *
- * Output format: "EARFCN X | Y.Y MHz | PCI Z | N PRB M ant | Operator | MCC MMM MNC NNN | RSRP -XX.X dBm"
- *
- * Usage: Print to console or JSON conversion
- * Example: "EARFCN 3502 | 930.2 MHz | PCI 81 | 25 PRB 1 ant | Telkomsel | MCC 510 MNC 10 | RSRP -16.6 dBm"
- */
-void lte_scan_result_str(const lte_scan_result_t* r, char* buf, int buflen)
-{
-
+/* --- Cell search and MIB decode --- */
 static cell_search_cfg_t cell_detect_config = {
     /*
      * PSS Detection (Primary Synchronization Signal)
