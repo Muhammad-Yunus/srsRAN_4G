@@ -64,9 +64,8 @@ const lte_operator_entry_t lte_operator_table_id[] = {
 
     /* === Band 5 (850 MHz) - DL: 869-894 MHz === */
     /* EARFCN 2400-2649, F_DL = 869 + 0.1 * (EARFCN - 2400) MHz */
-    { 2400, 2499, 510, 10,  false, "Telkomsel",          "Band 5" },
-    { 2500, 2599, 510, 9,   false, "Smartfren",          "Band 5" },
-    { 2600, 2649, 510, 9,   false, "Smartfren",          "Band 5" },
+    /* In Indonesia, Band 5 is exclusively used by Smartfren (MNC 9) */
+    { 2400, 2649, 510, 9,   false, "Smartfren",          "Band 5" },
 
     /* === Band 8 (900 MHz) - DL: 925-960 MHz === */
     /* EARFCN 3450-3799, F_DL = 925 + 0.1 * (EARFCN - 3450) MHz */
