@@ -10,6 +10,7 @@ benchmark_radio: \
   ../../support/libsupport.a \
   ../../srslog/libsrslog.a \
   /usr/lib/aarch64-linux-gnu/libmbedcrypto.so \
+  /usr/lib/aarch64-linux-gnu/libsctp.so \
   ../../phy/rf/libsrsran_rf.so.25.10.0 \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libdl.a \
   ../../phy/rf/libsrsran_rf_utils.a \
@@ -65,6 +66,8 @@ CMakeFiles/benchmark_radio.dir/benchmark_radio.cc.o:
 ../../srslog/libsrslog.a:
 
 /usr/lib/aarch64-linux-gnu/libmbedcrypto.so:
+
+/usr/lib/aarch64-linux-gnu/libsctp.so:
 
 ../../phy/rf/libsrsran_rf.so.25.10.0:
 

@@ -45,6 +45,7 @@ srsue: \
   /usr/lib/aarch64-linux-gnu/libfftw3f.so \
   ../../lib/src/support/libsupport.a \
   /usr/lib/aarch64-linux-gnu/libmbedcrypto.so \
+  /usr/lib/aarch64-linux-gnu/libsctp.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/libstdc++.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
@@ -164,6 +165,8 @@ stack/mac_common/libsrsue_mac_common.a:
 ../../lib/src/support/libsupport.a:
 
 /usr/lib/aarch64-linux-gnu/libmbedcrypto.so:
+
+/usr/lib/aarch64-linux-gnu/libsctp.so:
 
 /usr/lib/gcc/aarch64-linux-gnu/14/libstdc++.so:
 

@@ -262,6 +262,20 @@ npdsch_ue/fast:
 .PHONY : npdsch_ue/fast
 
 # Convenience name for target.
+lib/examples/CMakeFiles/zmq_remote_rx.dir/rule:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/examples/CMakeFiles/zmq_remote_rx.dir/rule
+.PHONY : lib/examples/CMakeFiles/zmq_remote_rx.dir/rule
+
+# Convenience name for target.
+zmq_remote_rx: lib/examples/CMakeFiles/zmq_remote_rx.dir/rule
+.PHONY : zmq_remote_rx
+
+# fast build rule for target.
+zmq_remote_rx/fast:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/examples/CMakeFiles/zmq_remote_rx.dir/build.make lib/examples/CMakeFiles/zmq_remote_rx.dir/build
+.PHONY : zmq_remote_rx/fast
+
+# Convenience name for target.
 lib/examples/CMakeFiles/cell_search.dir/rule:
 	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/examples/CMakeFiles/cell_search.dir/rule
 .PHONY : lib/examples/CMakeFiles/cell_search.dir/rule
@@ -771,6 +785,30 @@ usrp_txrx.c.s:
 	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/examples/CMakeFiles/usrp_txrx.dir/build.make lib/examples/CMakeFiles/usrp_txrx.dir/usrp_txrx.c.s
 .PHONY : usrp_txrx.c.s
 
+zmq_remote_rx.o: zmq_remote_rx.c.o
+.PHONY : zmq_remote_rx.o
+
+# target to build an object file
+zmq_remote_rx.c.o:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/examples/CMakeFiles/zmq_remote_rx.dir/build.make lib/examples/CMakeFiles/zmq_remote_rx.dir/zmq_remote_rx.c.o
+.PHONY : zmq_remote_rx.c.o
+
+zmq_remote_rx.i: zmq_remote_rx.c.i
+.PHONY : zmq_remote_rx.i
+
+# target to preprocess a source file
+zmq_remote_rx.c.i:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/examples/CMakeFiles/zmq_remote_rx.dir/build.make lib/examples/CMakeFiles/zmq_remote_rx.dir/zmq_remote_rx.c.i
+.PHONY : zmq_remote_rx.c.i
+
+zmq_remote_rx.s: zmq_remote_rx.c.s
+.PHONY : zmq_remote_rx.s
+
+# target to generate assembly for a file
+zmq_remote_rx.c.s:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/examples/CMakeFiles/zmq_remote_rx.dir/build.make lib/examples/CMakeFiles/zmq_remote_rx.dir/zmq_remote_rx.c.s
+.PHONY : zmq_remote_rx.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -800,6 +838,7 @@ help:
 	@echo "... usrp_capture_sync"
 	@echo "... usrp_capture_sync_nbiot"
 	@echo "... usrp_txrx"
+	@echo "... zmq_remote_rx"
 	@echo "... cell_search.o"
 	@echo "... cell_search.i"
 	@echo "... cell_search.s"
@@ -848,6 +887,9 @@ help:
 	@echo "... usrp_txrx.o"
 	@echo "... usrp_txrx.i"
 	@echo "... usrp_txrx.s"
+	@echo "... zmq_remote_rx.o"
+	@echo "... zmq_remote_rx.i"
+	@echo "... zmq_remote_rx.s"
 .PHONY : help
 
 

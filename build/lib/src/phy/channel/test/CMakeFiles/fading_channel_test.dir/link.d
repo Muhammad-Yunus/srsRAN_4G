@@ -11,6 +11,7 @@ fading_channel_test: \
   /usr/lib/aarch64-linux-gnu/libfftw3f.so \
   ../../../support/libsupport.a \
   ../../../srslog/libsrslog.a \
+  /usr/lib/aarch64-linux-gnu/libsctp.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/libstdc++.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
@@ -62,6 +63,8 @@ CMakeFiles/fading_channel_test.dir/fading_channel_test.c.o:
 ../../../support/libsupport.a:
 
 ../../../srslog/libsrslog.a:
+
+/usr/lib/aarch64-linux-gnu/libsctp.so:
 
 /usr/lib/gcc/aarch64-linux-gnu/14/libstdc++.so:
 

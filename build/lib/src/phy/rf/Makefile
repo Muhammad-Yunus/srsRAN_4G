@@ -220,6 +220,20 @@ srsran_rf_soapy/fast:
 .PHONY : srsran_rf_soapy/fast
 
 # Convenience name for target.
+lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/rule:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/rule
+.PHONY : lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/rule
+
+# Convenience name for target.
+srsran_rf_zmq: lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/rule
+.PHONY : srsran_rf_zmq
+
+# fast build rule for target.
+srsran_rf_zmq/fast:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/build.make lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/build
+.PHONY : srsran_rf_zmq/fast
+
+# Convenience name for target.
 lib/src/phy/rf/CMakeFiles/srsran_rf_object.dir/rule:
 	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/src/phy/rf/CMakeFiles/srsran_rf_object.dir/rule
 .PHONY : lib/src/phy/rf/CMakeFiles/srsran_rf_object.dir/rule
@@ -246,6 +260,20 @@ srsran_rf: lib/src/phy/rf/CMakeFiles/srsran_rf.dir/rule
 srsran_rf/fast:
 	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/srsran_rf.dir/build.make lib/src/phy/rf/CMakeFiles/srsran_rf.dir/build
 .PHONY : srsran_rf/fast
+
+# Convenience name for target.
+lib/src/phy/rf/CMakeFiles/rf_zmq_test.dir/rule:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/src/phy/rf/CMakeFiles/rf_zmq_test.dir/rule
+.PHONY : lib/src/phy/rf/CMakeFiles/rf_zmq_test.dir/rule
+
+# Convenience name for target.
+rf_zmq_test: lib/src/phy/rf/CMakeFiles/rf_zmq_test.dir/rule
+.PHONY : rf_zmq_test
+
+# fast build rule for target.
+rf_zmq_test/fast:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/rf_zmq_test.dir/build.make lib/src/phy/rf/CMakeFiles/rf_zmq_test.dir/build
+.PHONY : rf_zmq_test/fast
 
 # Convenience name for target.
 lib/src/phy/rf/CMakeFiles/rf_file_test.dir/rule:
@@ -429,6 +457,102 @@ rf_utils.c.s:
 	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/srsran_rf_utils.dir/build.make lib/src/phy/rf/CMakeFiles/srsran_rf_utils.dir/rf_utils.c.s
 .PHONY : rf_utils.c.s
 
+rf_zmq_imp.o: rf_zmq_imp.c.o
+.PHONY : rf_zmq_imp.o
+
+# target to build an object file
+rf_zmq_imp.c.o:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/build.make lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/rf_zmq_imp.c.o
+.PHONY : rf_zmq_imp.c.o
+
+rf_zmq_imp.i: rf_zmq_imp.c.i
+.PHONY : rf_zmq_imp.i
+
+# target to preprocess a source file
+rf_zmq_imp.c.i:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/build.make lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/rf_zmq_imp.c.i
+.PHONY : rf_zmq_imp.c.i
+
+rf_zmq_imp.s: rf_zmq_imp.c.s
+.PHONY : rf_zmq_imp.s
+
+# target to generate assembly for a file
+rf_zmq_imp.c.s:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/build.make lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/rf_zmq_imp.c.s
+.PHONY : rf_zmq_imp.c.s
+
+rf_zmq_imp_rx.o: rf_zmq_imp_rx.c.o
+.PHONY : rf_zmq_imp_rx.o
+
+# target to build an object file
+rf_zmq_imp_rx.c.o:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/build.make lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/rf_zmq_imp_rx.c.o
+.PHONY : rf_zmq_imp_rx.c.o
+
+rf_zmq_imp_rx.i: rf_zmq_imp_rx.c.i
+.PHONY : rf_zmq_imp_rx.i
+
+# target to preprocess a source file
+rf_zmq_imp_rx.c.i:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/build.make lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/rf_zmq_imp_rx.c.i
+.PHONY : rf_zmq_imp_rx.c.i
+
+rf_zmq_imp_rx.s: rf_zmq_imp_rx.c.s
+.PHONY : rf_zmq_imp_rx.s
+
+# target to generate assembly for a file
+rf_zmq_imp_rx.c.s:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/build.make lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/rf_zmq_imp_rx.c.s
+.PHONY : rf_zmq_imp_rx.c.s
+
+rf_zmq_imp_tx.o: rf_zmq_imp_tx.c.o
+.PHONY : rf_zmq_imp_tx.o
+
+# target to build an object file
+rf_zmq_imp_tx.c.o:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/build.make lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/rf_zmq_imp_tx.c.o
+.PHONY : rf_zmq_imp_tx.c.o
+
+rf_zmq_imp_tx.i: rf_zmq_imp_tx.c.i
+.PHONY : rf_zmq_imp_tx.i
+
+# target to preprocess a source file
+rf_zmq_imp_tx.c.i:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/build.make lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/rf_zmq_imp_tx.c.i
+.PHONY : rf_zmq_imp_tx.c.i
+
+rf_zmq_imp_tx.s: rf_zmq_imp_tx.c.s
+.PHONY : rf_zmq_imp_tx.s
+
+# target to generate assembly for a file
+rf_zmq_imp_tx.c.s:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/build.make lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/rf_zmq_imp_tx.c.s
+.PHONY : rf_zmq_imp_tx.c.s
+
+rf_zmq_test.o: rf_zmq_test.c.o
+.PHONY : rf_zmq_test.o
+
+# target to build an object file
+rf_zmq_test.c.o:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/rf_zmq_test.dir/build.make lib/src/phy/rf/CMakeFiles/rf_zmq_test.dir/rf_zmq_test.c.o
+.PHONY : rf_zmq_test.c.o
+
+rf_zmq_test.i: rf_zmq_test.c.i
+.PHONY : rf_zmq_test.i
+
+# target to preprocess a source file
+rf_zmq_test.c.i:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/rf_zmq_test.dir/build.make lib/src/phy/rf/CMakeFiles/rf_zmq_test.dir/rf_zmq_test.c.i
+.PHONY : rf_zmq_test.c.i
+
+rf_zmq_test.s: rf_zmq_test.c.s
+.PHONY : rf_zmq_test.s
+
+# target to generate assembly for a file
+rf_zmq_test.c.s:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/rf_zmq_test.dir/build.make lib/src/phy/rf/CMakeFiles/rf_zmq_test.dir/rf_zmq_test.c.s
+.PHONY : rf_zmq_test.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -445,10 +569,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... rf_file_test"
+	@echo "... rf_zmq_test"
 	@echo "... srsran_rf"
 	@echo "... srsran_rf_object"
 	@echo "... srsran_rf_soapy"
 	@echo "... srsran_rf_utils"
+	@echo "... srsran_rf_zmq"
 	@echo "... rf_file_imp.o"
 	@echo "... rf_file_imp.i"
 	@echo "... rf_file_imp.s"
@@ -470,6 +596,18 @@ help:
 	@echo "... rf_utils.o"
 	@echo "... rf_utils.i"
 	@echo "... rf_utils.s"
+	@echo "... rf_zmq_imp.o"
+	@echo "... rf_zmq_imp.i"
+	@echo "... rf_zmq_imp.s"
+	@echo "... rf_zmq_imp_rx.o"
+	@echo "... rf_zmq_imp_rx.i"
+	@echo "... rf_zmq_imp_rx.s"
+	@echo "... rf_zmq_imp_tx.o"
+	@echo "... rf_zmq_imp_tx.i"
+	@echo "... rf_zmq_imp_tx.s"
+	@echo "... rf_zmq_test.o"
+	@echo "... rf_zmq_test.i"
+	@echo "... rf_zmq_test.s"
 .PHONY : help
 
 

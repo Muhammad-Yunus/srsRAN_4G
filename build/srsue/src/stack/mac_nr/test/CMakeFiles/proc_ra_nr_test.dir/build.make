@@ -106,6 +106,7 @@ srsue/src/stack/mac_nr/test/proc_ra_nr_test: /usr/lib/aarch64-linux-gnu/libfftw3
 srsue/src/stack/mac_nr/test/proc_ra_nr_test: lib/src/support/libsupport.a
 srsue/src/stack/mac_nr/test/proc_ra_nr_test: lib/src/srslog/libsrslog.a
 srsue/src/stack/mac_nr/test/proc_ra_nr_test: /usr/lib/aarch64-linux-gnu/libmbedcrypto.so
+srsue/src/stack/mac_nr/test/proc_ra_nr_test: /usr/lib/aarch64-linux-gnu/libsctp.so
 srsue/src/stack/mac_nr/test/proc_ra_nr_test: srsue/src/stack/mac_nr/test/CMakeFiles/proc_ra_nr_test.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/pi/srsRAN_4G/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable proc_ra_nr_test"
 	cd /home/pi/srsRAN_4G/build/srsue/src/stack/mac_nr/test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/proc_ra_nr_test.dir/link.txt --verbose=$(VERBOSE)

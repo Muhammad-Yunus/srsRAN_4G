@@ -12,6 +12,7 @@ rlc_am_lte_test: \
   ../../src/support/libsupport.a \
   ../../src/srslog/libsrslog.a \
   /usr/lib/aarch64-linux-gnu/libmbedcrypto.so \
+  /usr/lib/aarch64-linux-gnu/libsctp.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/libstdc++.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
@@ -65,6 +66,8 @@ CMakeFiles/rlc_am_lte_test.dir/rlc_am_lte_test.cc.o:
 ../../src/srslog/libsrslog.a:
 
 /usr/lib/aarch64-linux-gnu/libmbedcrypto.so:
+
+/usr/lib/aarch64-linux-gnu/libsctp.so:
 
 /usr/lib/gcc/aarch64-linux-gnu/14/libstdc++.so:
 

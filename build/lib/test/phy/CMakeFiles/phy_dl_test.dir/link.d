@@ -11,6 +11,7 @@ phy_dl_test: \
   /usr/lib/aarch64-linux-gnu/libfftw3f.so \
   ../../src/support/libsupport.a \
   ../../src/srslog/libsrslog.a \
+  /usr/lib/aarch64-linux-gnu/libsctp.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/libstdc++.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
@@ -62,6 +63,8 @@ CMakeFiles/phy_dl_test.dir/phy_dl_test.c.o:
 ../../src/support/libsupport.a:
 
 ../../src/srslog/libsrslog.a:
+
+/usr/lib/aarch64-linux-gnu/libsctp.so:
 
 /usr/lib/gcc/aarch64-linux-gnu/14/libstdc++.so:
 

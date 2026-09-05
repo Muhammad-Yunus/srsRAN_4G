@@ -108,6 +108,7 @@ srsue/src/stack/upper/test/nas_5g_test: /usr/lib/aarch64-linux-gnu/libfftw3f.so
 srsue/src/stack/upper/test/nas_5g_test: lib/src/support/libsupport.a
 srsue/src/stack/upper/test/nas_5g_test: lib/src/srslog/libsrslog.a
 srsue/src/stack/upper/test/nas_5g_test: /usr/lib/aarch64-linux-gnu/libmbedcrypto.so
+srsue/src/stack/upper/test/nas_5g_test: /usr/lib/aarch64-linux-gnu/libsctp.so
 srsue/src/stack/upper/test/nas_5g_test: srsue/src/stack/upper/test/CMakeFiles/nas_5g_test.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/pi/srsRAN_4G/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable nas_5g_test"
 	cd /home/pi/srsRAN_4G/build/srsue/src/stack/upper/test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/nas_5g_test.dir/link.txt --verbose=$(VERBOSE)

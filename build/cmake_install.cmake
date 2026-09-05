@@ -50,6 +50,9 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/pi/srsRAN_4G/build/lib/cmake_install.cmake")
   include("/home/pi/srsRAN_4G/build/srsue/cmake_install.cmake")
+  include("/home/pi/srsRAN_4G/build/srsenb/cmake_install.cmake")
+  include("/home/pi/srsRAN_4G/build/srsgnb/cmake_install.cmake")
+  include("/home/pi/srsRAN_4G/build/srsepc/cmake_install.cmake")
   include("/home/pi/srsRAN_4G/build/test/cmake_install.cmake")
 
 endif()

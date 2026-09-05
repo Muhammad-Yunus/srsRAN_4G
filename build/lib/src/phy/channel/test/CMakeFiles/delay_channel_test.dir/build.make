@@ -103,6 +103,7 @@ lib/src/phy/channel/test/delay_channel_test: /usr/lib/aarch64-linux-gnu/libmbedc
 lib/src/phy/channel/test/delay_channel_test: /usr/lib/aarch64-linux-gnu/libfftw3f.so
 lib/src/phy/channel/test/delay_channel_test: lib/src/support/libsupport.a
 lib/src/phy/channel/test/delay_channel_test: lib/src/srslog/libsrslog.a
+lib/src/phy/channel/test/delay_channel_test: /usr/lib/aarch64-linux-gnu/libsctp.so
 lib/src/phy/channel/test/delay_channel_test: lib/src/phy/channel/test/CMakeFiles/delay_channel_test.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/pi/srsRAN_4G/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable delay_channel_test"
 	cd /home/pi/srsRAN_4G/build/lib/src/phy/channel/test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/delay_channel_test.dir/link.txt --verbose=$(VERBOSE)

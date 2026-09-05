@@ -10,6 +10,7 @@ bounded_vector_test: \
   ../../src/support/libsupport.a \
   ../../src/srslog/libsrslog.a \
   /usr/lib/aarch64-linux-gnu/libmbedcrypto.so \
+  /usr/lib/aarch64-linux-gnu/libsctp.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/libstdc++.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
@@ -36,6 +37,7 @@ bounded_vector_test: \
   /usr/lib/gcc/aarch64-linux-gnu/14/libgcc.a \
   /usr/lib/gcc/aarch64-linux-gnu/14/crtendS.o \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/crtn.o \
+  /lib/aarch64-linux-gnu/libm.so.6 \
   /lib/ld-linux-aarch64.so.1
 
 /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/Scrt1.o:
@@ -59,6 +61,8 @@ CMakeFiles/bounded_vector_test.dir/bounded_vector_test.cc.o:
 ../../src/srslog/libsrslog.a:
 
 /usr/lib/aarch64-linux-gnu/libmbedcrypto.so:
+
+/usr/lib/aarch64-linux-gnu/libsctp.so:
 
 /usr/lib/gcc/aarch64-linux-gnu/14/libstdc++.so:
 
@@ -111,5 +115,7 @@ CMakeFiles/bounded_vector_test.dir/bounded_vector_test.cc.o:
 /usr/lib/gcc/aarch64-linux-gnu/14/crtendS.o:
 
 /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/crtn.o:
+
+/lib/aarch64-linux-gnu/libm.so.6:
 
 /lib/ld-linux-aarch64.so.1:

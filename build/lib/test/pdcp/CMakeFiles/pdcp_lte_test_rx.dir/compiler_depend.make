@@ -548,6 +548,7 @@ lib/test/pdcp/pdcp_lte_test_rx: lib/src/asn1/libsrsran_asn1.a \
   /usr/lib/aarch64-linux-gnu/libc_nonshared.a \
   /usr/lib/aarch64-linux-gnu/libfftw3f.so \
   /usr/lib/aarch64-linux-gnu/libmbedcrypto.so \
+  /usr/lib/aarch64-linux-gnu/libsctp.so \
   /usr/lib/aarch64-linux-gnu/Scrt1.o \
   /usr/lib/aarch64-linux-gnu/crti.o \
   /usr/lib/aarch64-linux-gnu/crtn.o \
@@ -578,6 +579,8 @@ lib/test/pdcp/pdcp_lte_test_rx: lib/src/asn1/libsrsran_asn1.a \
 /usr/lib/aarch64-linux-gnu/crti.o:
 
 /usr/lib/aarch64-linux-gnu/Scrt1.o:
+
+/usr/lib/aarch64-linux-gnu/libsctp.so:
 
 /usr/include/aarch64-linux-gnu/bits/stdio.h:
 

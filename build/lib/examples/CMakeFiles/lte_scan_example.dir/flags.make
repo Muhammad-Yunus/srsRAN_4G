@@ -3,15 +3,15 @@
 
 # compile C with /usr/bin/cc
 # compile CXX with /usr/bin/c++
-C_DEFINES = -DENABLE_TIMEPROF
+C_DEFINES = -DASSERTS_ENABLED -DENABLE_TIMEPROF
 
 C_INCLUDES = -I/home/pi/srsRAN_4G/build/lib/include -I/home/pi/srsRAN_4G/lib/include -I/home/pi/srsRAN_4G/lib/examples -I/home/pi/srsRAN_4G -I/home/pi/srsRAN_4G/cmake/modules
 
-C_FLAGS =  -Wall -Wno-comment -Wno-write-strings -Wno-unused-result -Wformat -Wmissing-field-initializers -Wtype-limits -std=c99 -fno-strict-aliasing -D_GNU_SOURCE -Wno-unused-but-set-variable -O3 -fno-trapping-math -fno-math-errno -DBUILD_TYPE_RELEASE -DIS_ARM -DHAVE_NEON -DHAVE_NEONv8 -fvisibility=hidden -Wno-maybe-uninitialized -Wno-stringop-overflow --param large-function-growth=1600 -O3 -DNDEBUG -fPIE
+C_FLAGS =  -Wall -Wno-comment -Wno-write-strings -Wno-unused-result -Wformat -Wmissing-field-initializers -Wtype-limits -std=c99 -fno-strict-aliasing -D_GNU_SOURCE -Wno-unused-but-set-variable -O3 -fno-trapping-math -fno-math-errno -DBUILD_TYPE_RELEASE -DIS_ARM -DHAVE_NEON -DHAVE_NEONv8 -fvisibility=hidden -Werror -Wno-maybe-uninitialized -Wno-stringop-overflow --param large-function-growth=1600 -O3 -DNDEBUG -fPIE
 
-CXX_DEFINES = -DENABLE_TIMEPROF
+CXX_DEFINES = -DASSERTS_ENABLED -DENABLE_TIMEPROF
 
 CXX_INCLUDES = -I/home/pi/srsRAN_4G/build/lib/include -I/home/pi/srsRAN_4G/lib/include -I/home/pi/srsRAN_4G/lib/examples -I/home/pi/srsRAN_4G -I/home/pi/srsRAN_4G/cmake/modules
 
-CXX_FLAGS =  -Wall -Wno-comment -Wno-reorder -Wno-unused-variable -Wtype-limits -std=c++14 -fno-strict-aliasing -Wno-unused-but-set-variable -O3 -fno-trapping-math -fno-math-errno -DBUILD_TYPE_RELEASE -DIS_ARM -DHAVE_NEONv8 -Wno-maybe-uninitialized -O3 -DNDEBUG -fPIE
+CXX_FLAGS =  -Wall -Wno-comment -Wno-reorder -Wno-unused-variable -Wtype-limits -std=c++14 -fno-strict-aliasing -Wno-unused-but-set-variable -O3 -fno-trapping-math -fno-math-errno -DBUILD_TYPE_RELEASE -DIS_ARM -DHAVE_NEONv8 -Werror -Wno-maybe-uninitialized -O3 -DNDEBUG -fPIE
 

@@ -140,6 +140,7 @@ lib/src/phy/channel/test/awgn_channel_test: lib/src/common/libsrsran_common.a \
   /usr/lib/aarch64-linux-gnu/libc_nonshared.a \
   /usr/lib/aarch64-linux-gnu/libfftw3f.so \
   /usr/lib/aarch64-linux-gnu/libmbedcrypto.so \
+  /usr/lib/aarch64-linux-gnu/libsctp.so \
   /usr/lib/aarch64-linux-gnu/Scrt1.o \
   /usr/lib/aarch64-linux-gnu/crti.o \
   /usr/lib/aarch64-linux-gnu/crtn.o \
@@ -438,6 +439,8 @@ lib/src/support/libsupport.a:
 /usr/include/asm-generic/posix_types.h:
 
 /usr/include/stdc-predef.h:
+
+/usr/lib/aarch64-linux-gnu/libsctp.so:
 
 /usr/include/stdio.h:
 

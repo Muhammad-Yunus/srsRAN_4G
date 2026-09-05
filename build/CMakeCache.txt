@@ -15,7 +15,7 @@
 ########################
 
 //Enable srsRAN asserts
-ASSERTS_ENABLED:BOOL=OFF
+ASSERTS_ENABLED:BOOL=ON
 
 //Autodetect supported ISA extensions
 AUTO_DETECT_ISA:BOOL=ON
@@ -360,10 +360,10 @@ ENABLE_FMA:BOOL=ON
 ENABLE_GCOV:BOOL=OFF
 
 //Enable GUI (using srsGUI)
-ENABLE_GUI:BOOL=OFF
+ENABLE_GUI:BOOL=ON
 
 //Enable support for SIM cards
-ENABLE_HARDSIM:BOOL=OFF
+ENABLE_HARDSIM:BOOL=ON
 
 //Enable clang memory sanitizer
 ENABLE_MSAN:BOOL=OFF
@@ -375,10 +375,10 @@ ENABLE_RF_PLUGINS:BOOL=ON
 ENABLE_SOAPYSDR:BOOL=ON
 
 //Build srsENB application
-ENABLE_SRSENB:BOOL=OFF
+ENABLE_SRSENB:BOOL=ON
 
 //Build srsEPC application
-ENABLE_SRSEPC:BOOL=OFF
+ENABLE_SRSEPC:BOOL=ON
 
 //Enable event tracing using srslog
 ENABLE_SRSLOG_TRACING:BOOL=OFF
@@ -402,13 +402,13 @@ ENABLE_TSAN:BOOL=OFF
 ENABLE_TTCN3:BOOL=OFF
 
 //Enable UHD
-ENABLE_UHD:BOOL=OFF
+ENABLE_UHD:BOOL=ON
 
 //Stop compilation on errors
-ENABLE_WERROR:BOOL=OFF
+ENABLE_WERROR:BOOL=ON
 
 //Enable ZeroMQ
-ENABLE_ZEROMQ:BOOL=OFF
+ENABLE_ZEROMQ:BOOL=ON
 
 //Enable ZMQ based E2E tests
 ENABLE_ZMQ_TEST:BOOL=OFF
@@ -436,6 +436,24 @@ LIBBFD_INCLUDE_DIR:PATH=LIBBFD_INCLUDE_DIR-NOTFOUND
 
 //Path to a library.
 LIBBFD_LIBRARY:FILEPATH=LIBBFD_LIBRARY-NOTFOUND
+
+//Path to a file.
+LIBCONFIGPP_INCLUDE_DIR:PATH=/usr/include
+
+//Path to a library.
+LIBCONFIGPP_LIBRARY:FILEPATH=/usr/lib/aarch64-linux-gnu/libconfig++.so
+
+//Path to a library.
+LIBCONFIGPP_STATIC_LIBRARY:FILEPATH=/usr/lib/aarch64-linux-gnu/libconfig++.a
+
+//Path to a file.
+LIBCONFIG_INCLUDE_DIR:PATH=/usr/include
+
+//Path to a library.
+LIBCONFIG_LIBRARY:FILEPATH=/usr/lib/aarch64-linux-gnu/libconfig.so
+
+//Path to a library.
+LIBCONFIG_STATIC_LIBRARY:FILEPATH=/usr/lib/aarch64-linux-gnu/libconfig.a
 
 //Path to a file.
 LIBDL_INCLUDE_DIR:PATH=/usr/include
@@ -479,6 +497,12 @@ MEMORYCHECK_COMMAND:FILEPATH=MEMORYCHECK_COMMAND-NOTFOUND
 //File that contains suppressions for the memory checker
 MEMORYCHECK_SUPPRESSIONS_FILE:FILEPATH=
 
+//Path to a file.
+PCSCLITE_INCLUDE_DIR:PATH=PCSCLITE_INCLUDE_DIR-NOTFOUND
+
+//Path to a library.
+PCSCLITE_LIBRARY:FILEPATH=PCSCLITE_LIBRARY-NOTFOUND
+
 //Arguments to supply to pkg-config
 PKG_CONFIG_ARGN:STRING=
 
@@ -495,13 +519,19 @@ SCTP_INCLUDE_DIRS:PATH=/usr/include
 SCTP_LIBRARIES:FILEPATH=/usr/lib/aarch64-linux-gnu/libsctp.so
 
 //Name of the computer/site where compile is being run
-SITE:STRING=rtl-sdr-service
+SITE:STRING=passive-rf-device-0P260001
 
 //Path to a file.
 SOAPYSDR_INCLUDE_DIRS:PATH=/usr/include
 
 //Path to a library.
 SOAPYSDR_LIBRARIES:FILEPATH=/usr/lib/aarch64-linux-gnu/libSoapySDR.so
+
+//Path to a file.
+SRSGUI_INCLUDE_DIRS:PATH=SRSGUI_INCLUDE_DIRS-NOTFOUND
+
+//Path to a library.
+SRSGUI_LIBRARIES:FILEPATH=SRSGUI_LIBRARIES-NOTFOUND
 
 //Value Computed by CMake
 SRSRAN_BINARY_DIR:STATIC=/home/pi/srsRAN_4G/build
@@ -539,11 +569,26 @@ STACK_WALKING_UNWIND:BOOL=TRUE
 //Interrupt application on warning
 STOP_ON_WARNING:BOOL=OFF
 
+//No help, variable specified on the command line.
+TARGET_BOARD:UNINITIALIZED=raspberrypi4
+
+//Path to a file.
+UHD_INCLUDE_DIRS:PATH=UHD_INCLUDE_DIRS-NOTFOUND
+
+//Path to a library.
+UHD_LIBRARIES:FILEPATH=UHD_LIBRARIES-NOTFOUND
+
 //Use standard LTE sampling rates
 USE_LTE_RATES:BOOL=OFF
 
 //Use MKL instead of fftw
 USE_MKL:BOOL=OFF
+
+//Path to a file.
+ZEROMQ_INCLUDE_DIRS:PATH=/usr/include
+
+//Path to a library.
+ZEROMQ_LIBRARIES:FILEPATH=/usr/lib/aarch64-linux-gnu/libzmq.so
 
 //Dependencies for the target
 asn1_utils_LIB_DEPENDS:STATIC=general;srsran_common;
@@ -553,6 +598,9 @@ boost_headers_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/boost_headers-1.83.0
 
 //The directory containing a CMake configuration file for boost_program_options.
 boost_program_options_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/boost_program_options-1.83.0
+
+//Dependencies for the target
+enb_cfg_parser_LIB_DEPENDS:STATIC=general;srsran_common;general;srsgnb_rrc_config_utils;general;srsenb_cbs_encoding;general;/usr/lib/aarch64-linux-gnu/libconfig++.so;
 
 //Dependencies for the target
 nas_5g_msg_LIB_DEPENDS:STATIC=general;asn1_utils;general;srsran_common;
@@ -582,7 +630,31 @@ rrc_nr_asn1_LIB_DEPENDS:STATIC=general;asn1_utils;general;srsran_common;
 s1ap_asn1_LIB_DEPENDS:STATIC=general;asn1_utils;general;srsran_common;
 
 //Dependencies for the target
-srsran_common_LIB_DEPENDS:STATIC=general;srsran_phy;general;support;general;srslog;general;/usr/lib/aarch64-linux-gnu/libmbedcrypto.so;
+sched_nr_test_suite_LIB_DEPENDS:STATIC=general;srsgnb_mac;general;srsran_common;general;rrc_nr_asn1;
+
+//Dependencies for the target
+sched_test_common_LIB_DEPENDS:STATIC=general;srsran_common;general;srsran_mac;general;srsenb_mac;
+
+//Dependencies for the target
+srsenb_mac_LIB_DEPENDS:STATIC=general;srsenb_mac_common;
+
+//Dependencies for the target
+srsenb_upper_LIB_DEPENDS:STATIC=general;srsran_asn1;general;srsran_gtpu;
+
+//Dependencies for the target
+srsgnb_mac_LIB_DEPENDS:STATIC=general;srsenb_mac_common;general;srsran_mac;general;rrc_nr_asn1;
+
+//Dependencies for the target
+srsgnb_ric_LIB_DEPENDS:STATIC=general;srsran_asn1;general;ric_e2;
+
+//Dependencies for the target
+srsgnb_rrc_LIB_DEPENDS:STATIC=general;srsgnb_rrc_config_utils;
+
+//Dependencies for the target
+srsgnb_rrc_config_utils_LIB_DEPENDS:STATIC=general;srsran_phy;
+
+//Dependencies for the target
+srsran_common_LIB_DEPENDS:STATIC=general;srsran_phy;general;support;general;srslog;general;/usr/lib/aarch64-linux-gnu/libmbedcrypto.so;general;/usr/lib/aarch64-linux-gnu/libsctp.so;
 
 //Dependencies for the target
 srsran_gtpu_LIB_DEPENDS:STATIC=general;srsran_common;general;srsran_asn1;
@@ -609,6 +681,9 @@ srsran_rf_soapy_LIB_DEPENDS:STATIC=general;srsran_rf_utils;general;srsran_phy;ge
 srsran_rf_utils_LIB_DEPENDS:STATIC=general;srsran_phy;
 
 //Dependencies for the target
+srsran_rf_zmq_LIB_DEPENDS:STATIC=general;srsran_rf_utils;general;srsran_phy;general;/usr/lib/aarch64-linux-gnu/libzmq.so;
+
+//Dependencies for the target
 srsran_rlc_LIB_DEPENDS:STATIC=general;srsran_common;
 
 //Dependencies for the target
@@ -622,6 +697,9 @@ srsue_upper_LIB_DEPENDS:STATIC=general;srsran_asn1;general;nas_5g_msg;
 
 //Dependencies for the target
 system_LIB_DEPENDS:STATIC=general;;
+
+//Dependencies for the target
+test_helpers_LIB_DEPENDS:STATIC=general;srsenb_rrc;general;srsenb_common;general;rrc_asn1;general;rrc_nr_asn1;general;s1ap_asn1;general;srsran_common;general;enb_cfg_parser;general;/usr/lib/aarch64-linux-gnu/libconfig++.so;
 
 
 ########################
@@ -811,7 +889,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=91
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=126
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -944,6 +1022,18 @@ HAVE_WNO_UNUSED_BUT_SET_VARIABLE:INTERNAL=1
 LIBBFD_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: LIBBFD_LIBRARY
 LIBBFD_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: LIBCONFIGPP_INCLUDE_DIR
+LIBCONFIGPP_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: LIBCONFIGPP_LIBRARY
+LIBCONFIGPP_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: LIBCONFIGPP_STATIC_LIBRARY
+LIBCONFIGPP_STATIC_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: LIBCONFIG_INCLUDE_DIR
+LIBCONFIG_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: LIBCONFIG_LIBRARY
+LIBCONFIG_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: LIBCONFIG_STATIC_LIBRARY
+LIBCONFIG_STATIC_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: LIBDL_INCLUDE_DIR
 LIBDL_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: LIBDL_LIBRARY
@@ -972,6 +1062,10 @@ MBEDTLS_STATIC_LIBRARIES-ADVANCED:INTERNAL=1
 MEMORYCHECK_COMMAND-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MEMORYCHECK_SUPPRESSIONS_FILE
 MEMORYCHECK_SUPPRESSIONS_FILE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PCSCLITE_INCLUDE_DIR
+PCSCLITE_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PCSCLITE_LIBRARY
+PCSCLITE_LIBRARY-ADVANCED:INTERNAL=1
 PC_FFTW3F_CFLAGS:INTERNAL=-I/usr/include
 PC_FFTW3F_CFLAGS_I:INTERNAL=
 PC_FFTW3F_CFLAGS_OTHER:INTERNAL=
@@ -1042,6 +1136,31 @@ PC_MBEDTLS_mbedtls_INCLUDEDIR:INTERNAL=
 PC_MBEDTLS_mbedtls_LIBDIR:INTERNAL=
 PC_MBEDTLS_mbedtls_PREFIX:INTERNAL=
 PC_MBEDTLS_mbedtls_VERSION:INTERNAL=
+PC_PCSCLITE_CFLAGS:INTERNAL=
+PC_PCSCLITE_CFLAGS_I:INTERNAL=
+PC_PCSCLITE_CFLAGS_OTHER:INTERNAL=
+PC_PCSCLITE_FOUND:INTERNAL=
+PC_PCSCLITE_INCLUDEDIR:INTERNAL=
+PC_PCSCLITE_LIBDIR:INTERNAL=
+PC_PCSCLITE_LIBS:INTERNAL=
+PC_PCSCLITE_LIBS_L:INTERNAL=
+PC_PCSCLITE_LIBS_OTHER:INTERNAL=
+PC_PCSCLITE_LIBS_PATHS:INTERNAL=
+PC_PCSCLITE_MODULE_NAME:INTERNAL=
+PC_PCSCLITE_PREFIX:INTERNAL=
+PC_PCSCLITE_STATIC_CFLAGS:INTERNAL=
+PC_PCSCLITE_STATIC_CFLAGS_I:INTERNAL=
+PC_PCSCLITE_STATIC_CFLAGS_OTHER:INTERNAL=
+PC_PCSCLITE_STATIC_LIBDIR:INTERNAL=
+PC_PCSCLITE_STATIC_LIBS:INTERNAL=
+PC_PCSCLITE_STATIC_LIBS_L:INTERNAL=
+PC_PCSCLITE_STATIC_LIBS_OTHER:INTERNAL=
+PC_PCSCLITE_STATIC_LIBS_PATHS:INTERNAL=
+PC_PCSCLITE_VERSION:INTERNAL=
+PC_PCSCLITE_libpcsclite_INCLUDEDIR:INTERNAL=
+PC_PCSCLITE_libpcsclite_LIBDIR:INTERNAL=
+PC_PCSCLITE_libpcsclite_PREFIX:INTERNAL=
+PC_PCSCLITE_libpcsclite_VERSION:INTERNAL=
 PC_SCTP_CFLAGS:INTERNAL=
 PC_SCTP_CFLAGS_I:INTERNAL=
 PC_SCTP_CFLAGS_OTHER:INTERNAL=
@@ -1067,6 +1186,31 @@ PC_SCTP_sctp_INCLUDEDIR:INTERNAL=
 PC_SCTP_sctp_LIBDIR:INTERNAL=
 PC_SCTP_sctp_PREFIX:INTERNAL=
 PC_SCTP_sctp_VERSION:INTERNAL=
+PC_SRSGUI_CFLAGS:INTERNAL=
+PC_SRSGUI_CFLAGS_I:INTERNAL=
+PC_SRSGUI_CFLAGS_OTHER:INTERNAL=
+PC_SRSGUI_FOUND:INTERNAL=
+PC_SRSGUI_INCLUDEDIR:INTERNAL=
+PC_SRSGUI_LIBDIR:INTERNAL=
+PC_SRSGUI_LIBS:INTERNAL=
+PC_SRSGUI_LIBS_L:INTERNAL=
+PC_SRSGUI_LIBS_OTHER:INTERNAL=
+PC_SRSGUI_LIBS_PATHS:INTERNAL=
+PC_SRSGUI_MODULE_NAME:INTERNAL=
+PC_SRSGUI_PREFIX:INTERNAL=
+PC_SRSGUI_STATIC_CFLAGS:INTERNAL=
+PC_SRSGUI_STATIC_CFLAGS_I:INTERNAL=
+PC_SRSGUI_STATIC_CFLAGS_OTHER:INTERNAL=
+PC_SRSGUI_STATIC_LIBDIR:INTERNAL=
+PC_SRSGUI_STATIC_LIBS:INTERNAL=
+PC_SRSGUI_STATIC_LIBS_L:INTERNAL=
+PC_SRSGUI_STATIC_LIBS_OTHER:INTERNAL=
+PC_SRSGUI_STATIC_LIBS_PATHS:INTERNAL=
+PC_SRSGUI_VERSION:INTERNAL=
+PC_SRSGUI_srsgui_INCLUDEDIR:INTERNAL=
+PC_SRSGUI_srsgui_LIBDIR:INTERNAL=
+PC_SRSGUI_srsgui_PREFIX:INTERNAL=
+PC_SRSGUI_srsgui_VERSION:INTERNAL=
 //ADVANCED property for variable: PKG_CONFIG_ARGN
 PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
@@ -1120,6 +1264,45 @@ SOAPYSDR_PKG_SoapySDR_LIBDIR:INTERNAL=
 SOAPYSDR_PKG_SoapySDR_PREFIX:INTERNAL=
 SOAPYSDR_PKG_SoapySDR_VERSION:INTERNAL=
 SOAPYSDR_PKG_VERSION:INTERNAL=0.8.1
+//ADVANCED property for variable: SRSGUI_INCLUDE_DIRS
+SRSGUI_INCLUDE_DIRS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: SRSGUI_LIBRARIES
+SRSGUI_LIBRARIES-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: UHD_INCLUDE_DIRS
+UHD_INCLUDE_DIRS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: UHD_LIBRARIES
+UHD_LIBRARIES-ADVANCED:INTERNAL=1
+//libZEROMQ found
+ZEROMQ_FOUND:INTERNAL=TRUE
+//ADVANCED property for variable: ZEROMQ_INCLUDE_DIRS
+ZEROMQ_INCLUDE_DIRS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ZEROMQ_LIBRARIES
+ZEROMQ_LIBRARIES-ADVANCED:INTERNAL=1
+ZEROMQ_PKG_CFLAGS:INTERNAL=
+ZEROMQ_PKG_CFLAGS_I:INTERNAL=
+ZEROMQ_PKG_CFLAGS_OTHER:INTERNAL=
+ZEROMQ_PKG_FOUND:INTERNAL=
+ZEROMQ_PKG_INCLUDEDIR:INTERNAL=
+ZEROMQ_PKG_LIBDIR:INTERNAL=
+ZEROMQ_PKG_LIBS:INTERNAL=
+ZEROMQ_PKG_LIBS_L:INTERNAL=
+ZEROMQ_PKG_LIBS_OTHER:INTERNAL=
+ZEROMQ_PKG_LIBS_PATHS:INTERNAL=
+ZEROMQ_PKG_MODULE_NAME:INTERNAL=
+ZEROMQ_PKG_PREFIX:INTERNAL=
+ZEROMQ_PKG_STATIC_CFLAGS:INTERNAL=
+ZEROMQ_PKG_STATIC_CFLAGS_I:INTERNAL=
+ZEROMQ_PKG_STATIC_CFLAGS_OTHER:INTERNAL=
+ZEROMQ_PKG_STATIC_LIBDIR:INTERNAL=
+ZEROMQ_PKG_STATIC_LIBS:INTERNAL=
+ZEROMQ_PKG_STATIC_LIBS_L:INTERNAL=
+ZEROMQ_PKG_STATIC_LIBS_OTHER:INTERNAL=
+ZEROMQ_PKG_STATIC_LIBS_PATHS:INTERNAL=
+ZEROMQ_PKG_VERSION:INTERNAL=
+ZEROMQ_PKG_ZeroMQ_INCLUDEDIR:INTERNAL=
+ZEROMQ_PKG_ZeroMQ_LIBDIR:INTERNAL=
+ZEROMQ_PKG_ZeroMQ_PREFIX:INTERNAL=
+ZEROMQ_PKG_ZeroMQ_VERSION:INTERNAL=
 //linker supports push/pop state
 _CMAKE_CXX_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //linker supports push/pop state
@@ -1134,8 +1317,11 @@ __pkg_config_arguments_SOAPYSDR_PKG:INTERNAL=SoapySDR
 __pkg_config_checked_BLADERF_PKG:INTERNAL=1
 __pkg_config_checked_PC_FFTW3F:INTERNAL=1
 __pkg_config_checked_PC_MBEDTLS:INTERNAL=1
+__pkg_config_checked_PC_PCSCLITE:INTERNAL=1
 __pkg_config_checked_PC_SCTP:INTERNAL=1
+__pkg_config_checked_PC_SRSGUI:INTERNAL=1
 __pkg_config_checked_SOAPYSDR_PKG:INTERNAL=1
+__pkg_config_checked_ZEROMQ_PKG:INTERNAL=1
 //ADVANCED property for variable: boost_headers_DIR
 boost_headers_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: boost_program_options_DIR

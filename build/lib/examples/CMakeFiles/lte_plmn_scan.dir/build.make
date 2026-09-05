@@ -108,6 +108,7 @@ lib/examples/lte_plmn_scan: /usr/lib/aarch64-linux-gnu/libfftw3f.so
 lib/examples/lte_plmn_scan: lib/src/support/libsupport.a
 lib/examples/lte_plmn_scan: lib/src/srslog/libsrslog.a
 lib/examples/lte_plmn_scan: /usr/lib/aarch64-linux-gnu/libmbedcrypto.so
+lib/examples/lte_plmn_scan: /usr/lib/aarch64-linux-gnu/libsctp.so
 lib/examples/lte_plmn_scan: lib/examples/CMakeFiles/lte_plmn_scan.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/pi/srsRAN_4G/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable lte_plmn_scan"
 	cd /home/pi/srsRAN_4G/build/lib/examples && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/lte_plmn_scan.dir/link.txt --verbose=$(VERBOSE)

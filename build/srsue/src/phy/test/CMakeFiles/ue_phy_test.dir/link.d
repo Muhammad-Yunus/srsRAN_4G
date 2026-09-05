@@ -12,6 +12,7 @@ ue_phy_test: \
   ../../../../lib/src/support/libsupport.a \
   ../../../../lib/src/srslog/libsrslog.a \
   /usr/lib/aarch64-linux-gnu/libmbedcrypto.so \
+  /usr/lib/aarch64-linux-gnu/libsctp.so \
   ../../../../lib/src/phy/rf/libsrsran_rf.so.25.10.0 \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libdl.a \
   ../../../../lib/src/phy/rf/libsrsran_rf_utils.a \
@@ -71,6 +72,8 @@ CMakeFiles/ue_phy_test.dir/ue_phy_test.cc.o:
 ../../../../lib/src/srslog/libsrslog.a:
 
 /usr/lib/aarch64-linux-gnu/libmbedcrypto.so:
+
+/usr/lib/aarch64-linux-gnu/libsctp.so:
 
 ../../../../lib/src/phy/rf/libsrsran_rf.so.25.10.0:
 

@@ -1882,6 +1882,19 @@ srsran_rf_soapy/fast:
 .PHONY : srsran_rf_soapy/fast
 
 #=============================================================================
+# Target rules for targets named srsran_rf_zmq
+
+# Build rule for target.
+srsran_rf_zmq: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsran_rf_zmq
+.PHONY : srsran_rf_zmq
+
+# fast build rule for target.
+srsran_rf_zmq/fast:
+	$(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/build.make lib/src/phy/rf/CMakeFiles/srsran_rf_zmq.dir/build
+.PHONY : srsran_rf_zmq/fast
+
+#=============================================================================
 # Target rules for targets named srsran_rf_object
 
 # Build rule for target.
@@ -1906,6 +1919,19 @@ srsran_rf: cmake_check_build_system
 srsran_rf/fast:
 	$(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/srsran_rf.dir/build.make lib/src/phy/rf/CMakeFiles/srsran_rf.dir/build
 .PHONY : srsran_rf/fast
+
+#=============================================================================
+# Target rules for targets named rf_zmq_test
+
+# Build rule for target.
+rf_zmq_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rf_zmq_test
+.PHONY : rf_zmq_test
+
+# fast build rule for target.
+rf_zmq_test/fast:
+	$(MAKE) $(MAKESILENT) -f lib/src/phy/rf/CMakeFiles/rf_zmq_test.dir/build.make lib/src/phy/rf/CMakeFiles/rf_zmq_test.dir/build
+.PHONY : rf_zmq_test/fast
 
 #=============================================================================
 # Target rules for targets named rf_file_test
@@ -2803,6 +2829,19 @@ npdsch_ue: cmake_check_build_system
 npdsch_ue/fast:
 	$(MAKE) $(MAKESILENT) -f lib/examples/CMakeFiles/npdsch_ue.dir/build.make lib/examples/CMakeFiles/npdsch_ue.dir/build
 .PHONY : npdsch_ue/fast
+
+#=============================================================================
+# Target rules for targets named zmq_remote_rx
+
+# Build rule for target.
+zmq_remote_rx: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 zmq_remote_rx
+.PHONY : zmq_remote_rx
+
+# fast build rule for target.
+zmq_remote_rx/fast:
+	$(MAKE) $(MAKESILENT) -f lib/examples/CMakeFiles/zmq_remote_rx.dir/build.make lib/examples/CMakeFiles/zmq_remote_rx.dir/build
+.PHONY : zmq_remote_rx/fast
 
 #=============================================================================
 # Target rules for targets named cell_search
@@ -4377,6 +4416,786 @@ metrics_test/fast:
 	$(MAKE) $(MAKESILENT) -f srsue/src/test/CMakeFiles/metrics_test.dir/build.make srsue/src/test/CMakeFiles/metrics_test.dir/build
 .PHONY : metrics_test/fast
 
+#=============================================================================
+# Target rules for targets named srsenb_cbs_encoding
+
+# Build rule for target.
+srsenb_cbs_encoding: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsenb_cbs_encoding
+.PHONY : srsenb_cbs_encoding
+
+# fast build rule for target.
+srsenb_cbs_encoding/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/src/CMakeFiles/srsenb_cbs_encoding.dir/build.make srsenb/src/CMakeFiles/srsenb_cbs_encoding.dir/build
+.PHONY : srsenb_cbs_encoding/fast
+
+#=============================================================================
+# Target rules for targets named enb_cfg_parser
+
+# Build rule for target.
+enb_cfg_parser: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 enb_cfg_parser
+.PHONY : enb_cfg_parser
+
+# fast build rule for target.
+enb_cfg_parser/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/src/CMakeFiles/enb_cfg_parser.dir/build.make srsenb/src/CMakeFiles/enb_cfg_parser.dir/build
+.PHONY : enb_cfg_parser/fast
+
+#=============================================================================
+# Target rules for targets named srsenb
+
+# Build rule for target.
+srsenb: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsenb
+.PHONY : srsenb
+
+# fast build rule for target.
+srsenb/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/src/CMakeFiles/srsenb.dir/build.make srsenb/src/CMakeFiles/srsenb.dir/build
+.PHONY : srsenb/fast
+
+#=============================================================================
+# Target rules for targets named srsenb_common
+
+# Build rule for target.
+srsenb_common: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsenb_common
+.PHONY : srsenb_common
+
+# fast build rule for target.
+srsenb_common/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/src/common/CMakeFiles/srsenb_common.dir/build.make srsenb/src/common/CMakeFiles/srsenb_common.dir/build
+.PHONY : srsenb_common/fast
+
+#=============================================================================
+# Target rules for targets named srsenb_phy
+
+# Build rule for target.
+srsenb_phy: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsenb_phy
+.PHONY : srsenb_phy
+
+# fast build rule for target.
+srsenb_phy/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/src/phy/CMakeFiles/srsenb_phy.dir/build.make srsenb/src/phy/CMakeFiles/srsenb_phy.dir/build
+.PHONY : srsenb_phy/fast
+
+#=============================================================================
+# Target rules for targets named srsenb_stack
+
+# Build rule for target.
+srsenb_stack: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsenb_stack
+.PHONY : srsenb_stack
+
+# fast build rule for target.
+srsenb_stack/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/src/stack/CMakeFiles/srsenb_stack.dir/build.make srsenb/src/stack/CMakeFiles/srsenb_stack.dir/build
+.PHONY : srsenb_stack/fast
+
+#=============================================================================
+# Target rules for targets named srsenb_mac
+
+# Build rule for target.
+srsenb_mac: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsenb_mac
+.PHONY : srsenb_mac
+
+# fast build rule for target.
+srsenb_mac/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/src/stack/mac/CMakeFiles/srsenb_mac.dir/build.make srsenb/src/stack/mac/CMakeFiles/srsenb_mac.dir/build
+.PHONY : srsenb_mac/fast
+
+#=============================================================================
+# Target rules for targets named srsenb_mac_common
+
+# Build rule for target.
+srsenb_mac_common: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsenb_mac_common
+.PHONY : srsenb_mac_common
+
+# fast build rule for target.
+srsenb_mac_common/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/src/stack/mac/common/CMakeFiles/srsenb_mac_common.dir/build.make srsenb/src/stack/mac/common/CMakeFiles/srsenb_mac_common.dir/build
+.PHONY : srsenb_mac_common/fast
+
+#=============================================================================
+# Target rules for targets named mac_schedulers
+
+# Build rule for target.
+mac_schedulers: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mac_schedulers
+.PHONY : mac_schedulers
+
+# fast build rule for target.
+mac_schedulers/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/src/stack/mac/schedulers/CMakeFiles/mac_schedulers.dir/build.make srsenb/src/stack/mac/schedulers/CMakeFiles/mac_schedulers.dir/build
+.PHONY : mac_schedulers/fast
+
+#=============================================================================
+# Target rules for targets named srsenb_rrc
+
+# Build rule for target.
+srsenb_rrc: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsenb_rrc
+.PHONY : srsenb_rrc
+
+# fast build rule for target.
+srsenb_rrc/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/src/stack/rrc/CMakeFiles/srsenb_rrc.dir/build.make srsenb/src/stack/rrc/CMakeFiles/srsenb_rrc.dir/build
+.PHONY : srsenb_rrc/fast
+
+#=============================================================================
+# Target rules for targets named srsenb_s1ap
+
+# Build rule for target.
+srsenb_s1ap: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsenb_s1ap
+.PHONY : srsenb_s1ap
+
+# fast build rule for target.
+srsenb_s1ap/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/src/stack/s1ap/CMakeFiles/srsenb_s1ap.dir/build.make srsenb/src/stack/s1ap/CMakeFiles/srsenb_s1ap.dir/build
+.PHONY : srsenb_s1ap/fast
+
+#=============================================================================
+# Target rules for targets named srsenb_upper
+
+# Build rule for target.
+srsenb_upper: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsenb_upper
+.PHONY : srsenb_upper
+
+# fast build rule for target.
+srsenb_upper/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/src/stack/upper/CMakeFiles/srsenb_upper.dir/build.make srsenb/src/stack/upper/CMakeFiles/srsenb_upper.dir/build
+.PHONY : srsenb_upper/fast
+
+#=============================================================================
+# Target rules for targets named enb_metrics_test
+
+# Build rule for target.
+enb_metrics_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 enb_metrics_test
+.PHONY : enb_metrics_test
+
+# fast build rule for target.
+enb_metrics_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/CMakeFiles/enb_metrics_test.dir/build.make srsenb/test/CMakeFiles/enb_metrics_test.dir/build
+.PHONY : enb_metrics_test/fast
+
+#=============================================================================
+# Target rules for targets named sched_test_common
+
+# Build rule for target.
+sched_test_common: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_test_common
+.PHONY : sched_test_common
+
+# fast build rule for target.
+sched_test_common/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/mac/CMakeFiles/sched_test_common.dir/build.make srsenb/test/mac/CMakeFiles/sched_test_common.dir/build
+.PHONY : sched_test_common/fast
+
+#=============================================================================
+# Target rules for targets named sched_grid_test
+
+# Build rule for target.
+sched_grid_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_grid_test
+.PHONY : sched_grid_test
+
+# fast build rule for target.
+sched_grid_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/mac/CMakeFiles/sched_grid_test.dir/build.make srsenb/test/mac/CMakeFiles/sched_grid_test.dir/build
+.PHONY : sched_grid_test/fast
+
+#=============================================================================
+# Target rules for targets named sched_test_rand
+
+# Build rule for target.
+sched_test_rand: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_test_rand
+.PHONY : sched_test_rand
+
+# fast build rule for target.
+sched_test_rand/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/mac/CMakeFiles/sched_test_rand.dir/build.make srsenb/test/mac/CMakeFiles/sched_test_rand.dir/build
+.PHONY : sched_test_rand/fast
+
+#=============================================================================
+# Target rules for targets named sched_ca_test
+
+# Build rule for target.
+sched_ca_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_ca_test
+.PHONY : sched_ca_test
+
+# fast build rule for target.
+sched_ca_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/mac/CMakeFiles/sched_ca_test.dir/build.make srsenb/test/mac/CMakeFiles/sched_ca_test.dir/build
+.PHONY : sched_ca_test/fast
+
+#=============================================================================
+# Target rules for targets named sched_lc_ch_test
+
+# Build rule for target.
+sched_lc_ch_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_lc_ch_test
+.PHONY : sched_lc_ch_test
+
+# fast build rule for target.
+sched_lc_ch_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/mac/CMakeFiles/sched_lc_ch_test.dir/build.make srsenb/test/mac/CMakeFiles/sched_lc_ch_test.dir/build
+.PHONY : sched_lc_ch_test/fast
+
+#=============================================================================
+# Target rules for targets named sched_tpc_test
+
+# Build rule for target.
+sched_tpc_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_tpc_test
+.PHONY : sched_tpc_test
+
+# fast build rule for target.
+sched_tpc_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/mac/CMakeFiles/sched_tpc_test.dir/build.make srsenb/test/mac/CMakeFiles/sched_tpc_test.dir/build
+.PHONY : sched_tpc_test/fast
+
+#=============================================================================
+# Target rules for targets named sched_dci_test
+
+# Build rule for target.
+sched_dci_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_dci_test
+.PHONY : sched_dci_test
+
+# fast build rule for target.
+sched_dci_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/mac/CMakeFiles/sched_dci_test.dir/build.make srsenb/test/mac/CMakeFiles/sched_dci_test.dir/build
+.PHONY : sched_dci_test/fast
+
+#=============================================================================
+# Target rules for targets named sched_ue_cell_test
+
+# Build rule for target.
+sched_ue_cell_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_ue_cell_test
+.PHONY : sched_ue_cell_test
+
+# fast build rule for target.
+sched_ue_cell_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/mac/CMakeFiles/sched_ue_cell_test.dir/build.make srsenb/test/mac/CMakeFiles/sched_ue_cell_test.dir/build
+.PHONY : sched_ue_cell_test/fast
+
+#=============================================================================
+# Target rules for targets named sched_benchmark_test
+
+# Build rule for target.
+sched_benchmark_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_benchmark_test
+.PHONY : sched_benchmark_test
+
+# fast build rule for target.
+sched_benchmark_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/mac/CMakeFiles/sched_benchmark_test.dir/build.make srsenb/test/mac/CMakeFiles/sched_benchmark_test.dir/build
+.PHONY : sched_benchmark_test/fast
+
+#=============================================================================
+# Target rules for targets named sched_cqi_test
+
+# Build rule for target.
+sched_cqi_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_cqi_test
+.PHONY : sched_cqi_test
+
+# fast build rule for target.
+sched_cqi_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/mac/CMakeFiles/sched_cqi_test.dir/build.make srsenb/test/mac/CMakeFiles/sched_cqi_test.dir/build
+.PHONY : sched_cqi_test/fast
+
+#=============================================================================
+# Target rules for targets named sched_phy_resource_test
+
+# Build rule for target.
+sched_phy_resource_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_phy_resource_test
+.PHONY : sched_phy_resource_test
+
+# fast build rule for target.
+sched_phy_resource_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/mac/CMakeFiles/sched_phy_resource_test.dir/build.make srsenb/test/mac/CMakeFiles/sched_phy_resource_test.dir/build
+.PHONY : sched_phy_resource_test/fast
+
+#=============================================================================
+# Target rules for targets named enb_phy_test
+
+# Build rule for target.
+enb_phy_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 enb_phy_test
+.PHONY : enb_phy_test
+
+# fast build rule for target.
+enb_phy_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/phy/CMakeFiles/enb_phy_test.dir/build.make srsenb/test/phy/CMakeFiles/enb_phy_test.dir/build
+.PHONY : enb_phy_test/fast
+
+#=============================================================================
+# Target rules for targets named plmn_test
+
+# Build rule for target.
+plmn_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 plmn_test
+.PHONY : plmn_test
+
+# fast build rule for target.
+plmn_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/upper/CMakeFiles/plmn_test.dir/build.make srsenb/test/upper/CMakeFiles/plmn_test.dir/build
+.PHONY : plmn_test/fast
+
+#=============================================================================
+# Target rules for targets named gtpu_test
+
+# Build rule for target.
+gtpu_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtpu_test
+.PHONY : gtpu_test
+
+# fast build rule for target.
+gtpu_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/upper/CMakeFiles/gtpu_test.dir/build.make srsenb/test/upper/CMakeFiles/gtpu_test.dir/build
+.PHONY : gtpu_test/fast
+
+#=============================================================================
+# Target rules for targets named test_helpers
+
+# Build rule for target.
+test_helpers: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_helpers
+.PHONY : test_helpers
+
+# fast build rule for target.
+test_helpers/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/rrc/CMakeFiles/test_helpers.dir/build.make srsenb/test/rrc/CMakeFiles/test_helpers.dir/build
+.PHONY : test_helpers/fast
+
+#=============================================================================
+# Target rules for targets named rrc_meascfg_test
+
+# Build rule for target.
+rrc_meascfg_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rrc_meascfg_test
+.PHONY : rrc_meascfg_test
+
+# fast build rule for target.
+rrc_meascfg_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/rrc/CMakeFiles/rrc_meascfg_test.dir/build.make srsenb/test/rrc/CMakeFiles/rrc_meascfg_test.dir/build
+.PHONY : rrc_meascfg_test/fast
+
+#=============================================================================
+# Target rules for targets named erab_setup_test
+
+# Build rule for target.
+erab_setup_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 erab_setup_test
+.PHONY : erab_setup_test
+
+# fast build rule for target.
+erab_setup_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/rrc/CMakeFiles/erab_setup_test.dir/build.make srsenb/test/rrc/CMakeFiles/erab_setup_test.dir/build
+.PHONY : erab_setup_test/fast
+
+#=============================================================================
+# Target rules for targets named rrc_mobility_test
+
+# Build rule for target.
+rrc_mobility_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rrc_mobility_test
+.PHONY : rrc_mobility_test
+
+# fast build rule for target.
+rrc_mobility_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/rrc/CMakeFiles/rrc_mobility_test.dir/build.make srsenb/test/rrc/CMakeFiles/rrc_mobility_test.dir/build
+.PHONY : rrc_mobility_test/fast
+
+#=============================================================================
+# Target rules for targets named rrc_paging_test
+
+# Build rule for target.
+rrc_paging_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rrc_paging_test
+.PHONY : rrc_paging_test
+
+# fast build rule for target.
+rrc_paging_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/rrc/CMakeFiles/rrc_paging_test.dir/build.make srsenb/test/rrc/CMakeFiles/rrc_paging_test.dir/build
+.PHONY : rrc_paging_test/fast
+
+#=============================================================================
+# Target rules for targets named s1ap_test
+
+# Build rule for target.
+s1ap_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 s1ap_test
+.PHONY : s1ap_test
+
+# fast build rule for target.
+s1ap_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsenb/test/s1ap/CMakeFiles/s1ap_test.dir/build.make srsenb/test/s1ap/CMakeFiles/s1ap_test.dir/build
+.PHONY : s1ap_test/fast
+
+#=============================================================================
+# Target rules for targets named srsgnb_stack
+
+# Build rule for target.
+srsgnb_stack: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsgnb_stack
+.PHONY : srsgnb_stack
+
+# fast build rule for target.
+srsgnb_stack/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/CMakeFiles/srsgnb_stack.dir/build.make srsgnb/src/stack/CMakeFiles/srsgnb_stack.dir/build
+.PHONY : srsgnb_stack/fast
+
+#=============================================================================
+# Target rules for targets named srsgnb_mac
+
+# Build rule for target.
+srsgnb_mac: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsgnb_mac
+.PHONY : srsgnb_mac
+
+# fast build rule for target.
+srsgnb_mac/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/mac/CMakeFiles/srsgnb_mac.dir/build.make srsgnb/src/stack/mac/CMakeFiles/srsgnb_mac.dir/build
+.PHONY : srsgnb_mac/fast
+
+#=============================================================================
+# Target rules for targets named sched_nr_test_suite
+
+# Build rule for target.
+sched_nr_test_suite: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_nr_test_suite
+.PHONY : sched_nr_test_suite
+
+# fast build rule for target.
+sched_nr_test_suite/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_test_suite.dir/build.make srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_test_suite.dir/build
+.PHONY : sched_nr_test_suite/fast
+
+#=============================================================================
+# Target rules for targets named sched_nr_parallel_test
+
+# Build rule for target.
+sched_nr_parallel_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_nr_parallel_test
+.PHONY : sched_nr_parallel_test
+
+# fast build rule for target.
+sched_nr_parallel_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_parallel_test.dir/build.make srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_parallel_test.dir/build
+.PHONY : sched_nr_parallel_test/fast
+
+#=============================================================================
+# Target rules for targets named sched_nr_prb_test
+
+# Build rule for target.
+sched_nr_prb_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_nr_prb_test
+.PHONY : sched_nr_prb_test
+
+# fast build rule for target.
+sched_nr_prb_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_prb_test.dir/build.make srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_prb_test.dir/build
+.PHONY : sched_nr_prb_test/fast
+
+#=============================================================================
+# Target rules for targets named sched_nr_pdcch_test
+
+# Build rule for target.
+sched_nr_pdcch_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_nr_pdcch_test
+.PHONY : sched_nr_pdcch_test
+
+# fast build rule for target.
+sched_nr_pdcch_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_pdcch_test.dir/build.make srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_pdcch_test.dir/build
+.PHONY : sched_nr_pdcch_test/fast
+
+#=============================================================================
+# Target rules for targets named sched_nr_sch_test
+
+# Build rule for target.
+sched_nr_sch_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_nr_sch_test
+.PHONY : sched_nr_sch_test
+
+# fast build rule for target.
+sched_nr_sch_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_sch_test.dir/build.make srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_sch_test.dir/build
+.PHONY : sched_nr_sch_test/fast
+
+#=============================================================================
+# Target rules for targets named sched_nr_rar_test
+
+# Build rule for target.
+sched_nr_rar_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_nr_rar_test
+.PHONY : sched_nr_rar_test
+
+# fast build rule for target.
+sched_nr_rar_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_rar_test.dir/build.make srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_rar_test.dir/build
+.PHONY : sched_nr_rar_test/fast
+
+#=============================================================================
+# Target rules for targets named sched_nr_dci_utilities_tests
+
+# Build rule for target.
+sched_nr_dci_utilities_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_nr_dci_utilities_tests
+.PHONY : sched_nr_dci_utilities_tests
+
+# fast build rule for target.
+sched_nr_dci_utilities_tests/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_dci_utilities_tests.dir/build.make srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_dci_utilities_tests.dir/build
+.PHONY : sched_nr_dci_utilities_tests/fast
+
+#=============================================================================
+# Target rules for targets named sched_nr_test
+
+# Build rule for target.
+sched_nr_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sched_nr_test
+.PHONY : sched_nr_test
+
+# fast build rule for target.
+sched_nr_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_test.dir/build.make srsgnb/src/stack/mac/test/CMakeFiles/sched_nr_test.dir/build
+.PHONY : sched_nr_test/fast
+
+#=============================================================================
+# Target rules for targets named srsgnb_ngap
+
+# Build rule for target.
+srsgnb_ngap: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsgnb_ngap
+.PHONY : srsgnb_ngap
+
+# fast build rule for target.
+srsgnb_ngap/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/ngap/CMakeFiles/srsgnb_ngap.dir/build.make srsgnb/src/stack/ngap/CMakeFiles/srsgnb_ngap.dir/build
+.PHONY : srsgnb_ngap/fast
+
+#=============================================================================
+# Target rules for targets named ngap_test
+
+# Build rule for target.
+ngap_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ngap_test
+.PHONY : ngap_test
+
+# fast build rule for target.
+ngap_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/ngap/test/CMakeFiles/ngap_test.dir/build.make srsgnb/src/stack/ngap/test/CMakeFiles/ngap_test.dir/build
+.PHONY : ngap_test/fast
+
+#=============================================================================
+# Target rules for targets named srsgnb_ric
+
+# Build rule for target.
+srsgnb_ric: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsgnb_ric
+.PHONY : srsgnb_ric
+
+# fast build rule for target.
+srsgnb_ric/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/ric/CMakeFiles/srsgnb_ric.dir/build.make srsgnb/src/stack/ric/CMakeFiles/srsgnb_ric.dir/build
+.PHONY : srsgnb_ric/fast
+
+#=============================================================================
+# Target rules for targets named e2ap_test
+
+# Build rule for target.
+e2ap_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 e2ap_test
+.PHONY : e2ap_test
+
+# fast build rule for target.
+e2ap_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/ric/test/CMakeFiles/e2ap_test.dir/build.make srsgnb/src/stack/ric/test/CMakeFiles/e2ap_test.dir/build
+.PHONY : e2ap_test/fast
+
+#=============================================================================
+# Target rules for targets named srsgnb_rrc_config_utils
+
+# Build rule for target.
+srsgnb_rrc_config_utils: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsgnb_rrc_config_utils
+.PHONY : srsgnb_rrc_config_utils
+
+# fast build rule for target.
+srsgnb_rrc_config_utils/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/rrc/CMakeFiles/srsgnb_rrc_config_utils.dir/build.make srsgnb/src/stack/rrc/CMakeFiles/srsgnb_rrc_config_utils.dir/build
+.PHONY : srsgnb_rrc_config_utils/fast
+
+#=============================================================================
+# Target rules for targets named srsgnb_rrc
+
+# Build rule for target.
+srsgnb_rrc: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsgnb_rrc
+.PHONY : srsgnb_rrc
+
+# fast build rule for target.
+srsgnb_rrc/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/rrc/CMakeFiles/srsgnb_rrc.dir/build.make srsgnb/src/stack/rrc/CMakeFiles/srsgnb_rrc.dir/build
+.PHONY : srsgnb_rrc/fast
+
+#=============================================================================
+# Target rules for targets named rrc_nr_test_helpers
+
+# Build rule for target.
+rrc_nr_test_helpers: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rrc_nr_test_helpers
+.PHONY : rrc_nr_test_helpers
+
+# fast build rule for target.
+rrc_nr_test_helpers/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/rrc/test/CMakeFiles/rrc_nr_test_helpers.dir/build.make srsgnb/src/stack/rrc/test/CMakeFiles/rrc_nr_test_helpers.dir/build
+.PHONY : rrc_nr_test_helpers/fast
+
+#=============================================================================
+# Target rules for targets named rrc_nr_test
+
+# Build rule for target.
+rrc_nr_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rrc_nr_test
+.PHONY : rrc_nr_test
+
+# fast build rule for target.
+rrc_nr_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/rrc/test/CMakeFiles/rrc_nr_test.dir/build.make srsgnb/src/stack/rrc/test/CMakeFiles/rrc_nr_test.dir/build
+.PHONY : rrc_nr_test/fast
+
+#=============================================================================
+# Target rules for targets named rrc_nr_core_test
+
+# Build rule for target.
+rrc_nr_core_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rrc_nr_core_test
+.PHONY : rrc_nr_core_test
+
+# fast build rule for target.
+rrc_nr_core_test/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/rrc/test/CMakeFiles/rrc_nr_core_test.dir/build.make srsgnb/src/stack/rrc/test/CMakeFiles/rrc_nr_core_test.dir/build
+.PHONY : rrc_nr_core_test/fast
+
+#=============================================================================
+# Target rules for targets named srsgnb_sdap
+
+# Build rule for target.
+srsgnb_sdap: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsgnb_sdap
+.PHONY : srsgnb_sdap
+
+# fast build rule for target.
+srsgnb_sdap/fast:
+	$(MAKE) $(MAKESILENT) -f srsgnb/src/stack/sdap/CMakeFiles/srsgnb_sdap.dir/build.make srsgnb/src/stack/sdap/CMakeFiles/srsgnb_sdap.dir/build
+.PHONY : srsgnb_sdap/fast
+
+#=============================================================================
+# Target rules for targets named srsepc
+
+# Build rule for target.
+srsepc: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsepc
+.PHONY : srsepc
+
+# fast build rule for target.
+srsepc/fast:
+	$(MAKE) $(MAKESILENT) -f srsepc/src/CMakeFiles/srsepc.dir/build.make srsepc/src/CMakeFiles/srsepc.dir/build
+.PHONY : srsepc/fast
+
+#=============================================================================
+# Target rules for targets named srsmbms
+
+# Build rule for target.
+srsmbms: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsmbms
+.PHONY : srsmbms
+
+# fast build rule for target.
+srsmbms/fast:
+	$(MAKE) $(MAKESILENT) -f srsepc/src/CMakeFiles/srsmbms.dir/build.make srsepc/src/CMakeFiles/srsmbms.dir/build
+.PHONY : srsmbms/fast
+
+#=============================================================================
+# Target rules for targets named srsepc_mme
+
+# Build rule for target.
+srsepc_mme: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsepc_mme
+.PHONY : srsepc_mme
+
+# fast build rule for target.
+srsepc_mme/fast:
+	$(MAKE) $(MAKESILENT) -f srsepc/src/mme/CMakeFiles/srsepc_mme.dir/build.make srsepc/src/mme/CMakeFiles/srsepc_mme.dir/build
+.PHONY : srsepc_mme/fast
+
+#=============================================================================
+# Target rules for targets named srsepc_hss
+
+# Build rule for target.
+srsepc_hss: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsepc_hss
+.PHONY : srsepc_hss
+
+# fast build rule for target.
+srsepc_hss/fast:
+	$(MAKE) $(MAKESILENT) -f srsepc/src/hss/CMakeFiles/srsepc_hss.dir/build.make srsepc/src/hss/CMakeFiles/srsepc_hss.dir/build
+.PHONY : srsepc_hss/fast
+
+#=============================================================================
+# Target rules for targets named srsepc_sgw
+
+# Build rule for target.
+srsepc_sgw: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsepc_sgw
+.PHONY : srsepc_sgw
+
+# fast build rule for target.
+srsepc_sgw/fast:
+	$(MAKE) $(MAKESILENT) -f srsepc/src/spgw/CMakeFiles/srsepc_sgw.dir/build.make srsepc/src/spgw/CMakeFiles/srsepc_sgw.dir/build
+.PHONY : srsepc_sgw/fast
+
+#=============================================================================
+# Target rules for targets named srsepc_mbms_gw
+
+# Build rule for target.
+srsepc_mbms_gw: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 srsepc_mbms_gw
+.PHONY : srsepc_mbms_gw
+
+# fast build rule for target.
+srsepc_mbms_gw/fast:
+	$(MAKE) $(MAKESILENT) -f srsepc/src/mbms-gw/CMakeFiles/srsepc_mbms_gw.dir/build.make srsepc/src/mbms-gw/CMakeFiles/srsepc_mbms_gw.dir/build
+.PHONY : srsepc_mbms_gw/fast
+
+#=============================================================================
+# Target rules for targets named nr_phy_test
+
+# Build rule for target.
+nr_phy_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nr_phy_test
+.PHONY : nr_phy_test
+
+# fast build rule for target.
+nr_phy_test/fast:
+	$(MAKE) $(MAKESILENT) -f test/phy/CMakeFiles/nr_phy_test.dir/build.make test/phy/CMakeFiles/nr_phy_test.dir/build
+.PHONY : nr_phy_test/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -4461,6 +5280,11 @@ help:
 	@echo "... dft_test"
 	@echo "... dmrs_pdcch_test"
 	@echo "... dmrs_pdsch_test"
+	@echo "... e2ap_test"
+	@echo "... enb_cfg_parser"
+	@echo "... enb_metrics_test"
+	@echo "... enb_phy_test"
+	@echo "... erab_setup_test"
 	@echo "... expected_test"
 	@echo "... fading_channel_test"
 	@echo "... file_sink_test"
@@ -4469,6 +5293,7 @@ help:
 	@echo "... fsm_test"
 	@echo "... gen_ack_nr_test"
 	@echo "... gen_ack_test"
+	@echo "... gtpu_test"
 	@echo "... gw_test"
 	@echo "... hst_channel_test"
 	@echo "... interval_test"
@@ -4490,6 +5315,7 @@ help:
 	@echo "... mac_pcap_net_test"
 	@echo "... mac_pcap_test"
 	@echo "... mac_pdu_nr_test"
+	@echo "... mac_schedulers"
 	@echo "... mac_test"
 	@echo "... mem_pool_test"
 	@echo "... metrics_test"
@@ -4503,6 +5329,7 @@ help:
 	@echo "... network_utils_test"
 	@echo "... ngap_asn1_test"
 	@echo "... ngap_nr_asn1"
+	@echo "... ngap_test"
 	@echo "... npbch_file_test"
 	@echo "... npbch_test"
 	@echo "... npdcch_file_test"
@@ -4516,6 +5343,7 @@ help:
 	@echo "... npss_usrp"
 	@echo "... nr_cell_search_rf"
 	@echo "... nr_cell_search_test"
+	@echo "... nr_phy_test"
 	@echo "... nr_sa_cell_search_test"
 	@echo "... nsss_test"
 	@echo "... nsss_usrp"
@@ -4547,6 +5375,7 @@ help:
 	@echo "... phy_common_test"
 	@echo "... phy_dl_nr_test"
 	@echo "... phy_dl_test"
+	@echo "... plmn_test"
 	@echo "... pmch_file_test"
 	@echo "... pmch_test"
 	@echo "... pmi_select_test"
@@ -4584,6 +5413,7 @@ help:
 	@echo "... resample_arb_test"
 	@echo "... resampler_test"
 	@echo "... rf_file_test"
+	@echo "... rf_zmq_test"
 	@echo "... ric_e2"
 	@echo "... ringbuffer_test"
 	@echo "... rlc_am_control_test"
@@ -4604,24 +5434,73 @@ help:
 	@echo "... rrc_asn1_test"
 	@echo "... rrc_cell_test"
 	@echo "... rrc_meas_test"
+	@echo "... rrc_meascfg_test"
+	@echo "... rrc_mobility_test"
 	@echo "... rrc_nr_asn1"
+	@echo "... rrc_nr_core_test"
+	@echo "... rrc_nr_test"
+	@echo "... rrc_nr_test_helpers"
 	@echo "... rrc_nr_utils_test"
+	@echo "... rrc_paging_test"
 	@echo "... rrc_phy_ctrl_test"
 	@echo "... rrc_reconfig_test"
 	@echo "... rrc_rlf_report_test"
 	@echo "... s1ap_asn1"
 	@echo "... s1ap_asn1_test"
+	@echo "... s1ap_test"
 	@echo "... scell_search_test"
 	@echo "... sch_nr_test"
+	@echo "... sched_benchmark_test"
+	@echo "... sched_ca_test"
+	@echo "... sched_cqi_test"
+	@echo "... sched_dci_test"
+	@echo "... sched_grid_test"
+	@echo "... sched_lc_ch_test"
+	@echo "... sched_nr_dci_utilities_tests"
+	@echo "... sched_nr_parallel_test"
+	@echo "... sched_nr_pdcch_test"
+	@echo "... sched_nr_prb_test"
+	@echo "... sched_nr_rar_test"
+	@echo "... sched_nr_sch_test"
+	@echo "... sched_nr_test"
+	@echo "... sched_nr_test_suite"
+	@echo "... sched_phy_resource_test"
+	@echo "... sched_test_common"
+	@echo "... sched_test_rand"
+	@echo "... sched_tpc_test"
+	@echo "... sched_ue_cell_test"
 	@echo "... scope_exit_test"
 	@echo "... scrambling_test"
 	@echo "... sequence_test"
 	@echo "... sliv_test"
 	@echo "... soft_demod_test"
 	@echo "... span_test"
+	@echo "... srsenb"
+	@echo "... srsenb_cbs_encoding"
+	@echo "... srsenb_common"
+	@echo "... srsenb_mac"
+	@echo "... srsenb_mac_common"
+	@echo "... srsenb_phy"
+	@echo "... srsenb_rrc"
+	@echo "... srsenb_s1ap"
+	@echo "... srsenb_stack"
+	@echo "... srsenb_upper"
+	@echo "... srsepc"
+	@echo "... srsepc_hss"
+	@echo "... srsepc_mbms_gw"
+	@echo "... srsepc_mme"
+	@echo "... srsepc_sgw"
+	@echo "... srsgnb_mac"
+	@echo "... srsgnb_ngap"
+	@echo "... srsgnb_ric"
+	@echo "... srsgnb_rrc"
+	@echo "... srsgnb_rrc_config_utils"
+	@echo "... srsgnb_sdap"
+	@echo "... srsgnb_stack"
 	@echo "... srslog"
 	@echo "... srslog_frontend_latency"
 	@echo "... srslog_test"
+	@echo "... srsmbms"
 	@echo "... srsran_agc"
 	@echo "... srsran_asn1"
 	@echo "... srsran_asn1_nas_test"
@@ -4654,6 +5533,7 @@ help:
 	@echo "... srsran_rf_object"
 	@echo "... srsran_rf_soapy"
 	@echo "... srsran_rf_utils"
+	@echo "... srsran_rf_zmq"
 	@echo "... srsran_rlc"
 	@echo "... srsran_scrambling"
 	@echo "... srsran_sync"
@@ -4688,6 +5568,7 @@ help:
 	@echo "... test_eia1"
 	@echo "... test_eia3"
 	@echo "... test_f12345"
+	@echo "... test_helpers"
 	@echo "... test_radio_rt_gain"
 	@echo "... test_security_kdf"
 	@echo "... text_formatter_test"
@@ -4714,6 +5595,7 @@ help:
 	@echo "... usrp_txrx"
 	@echo "... vector_test"
 	@echo "... viterbi_test"
+	@echo "... zmq_remote_rx"
 .PHONY : help
 
 

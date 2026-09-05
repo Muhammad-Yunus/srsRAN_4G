@@ -1,15 +1,15 @@
 Performing C SOURCE FILE Test HAVE_SSE failed with the following output:
 Change Dir: '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
 
-Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_cf27a/fast
-/usr/bin/gmake  -f CMakeFiles/cmTC_cf27a.dir/build.make CMakeFiles/cmTC_cf27a.dir/build
+Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_4f690/fast
+/usr/bin/gmake  -f CMakeFiles/cmTC_4f690.dir/build.make CMakeFiles/cmTC_4f690.dir/build
 gmake[1]: Entering directory '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_cf27a.dir/src.c.o
-/usr/bin/cc   -DHAVE_SSE -msse4.1 -o CMakeFiles/cmTC_cf27a.dir/src.c.o -c /home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp/src.c
+Building C object CMakeFiles/cmTC_4f690.dir/src.c.o
+/usr/bin/cc   -DHAVE_SSE -msse4.1 -o CMakeFiles/cmTC_4f690.dir/src.c.o -c /home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp/src.c
 cc: error: unrecognized command-line option '-msse4.1'
-gmake[1]: *** [CMakeFiles/cmTC_cf27a.dir/build.make:81: CMakeFiles/cmTC_cf27a.dir/src.c.o] Error 1
+gmake[1]: *** [CMakeFiles/cmTC_4f690.dir/build.make:81: CMakeFiles/cmTC_4f690.dir/src.c.o] Error 1
 gmake[1]: Leaving directory '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
-gmake: *** [Makefile:134: cmTC_cf27a/fast] Error 2
+gmake: *** [Makefile:134: cmTC_4f690/fast] Error 2
 
 
 Return value: 1
@@ -27,15 +27,15 @@ Source file was:
 Performing C SOURCE FILE Test HAVE_AVX failed with the following output:
 Change Dir: '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
 
-Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_ccf3e/fast
-/usr/bin/gmake  -f CMakeFiles/cmTC_ccf3e.dir/build.make CMakeFiles/cmTC_ccf3e.dir/build
+Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f357a/fast
+/usr/bin/gmake  -f CMakeFiles/cmTC_f357a.dir/build.make CMakeFiles/cmTC_f357a.dir/build
 gmake[1]: Entering directory '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_ccf3e.dir/src.c.o
-/usr/bin/cc   -DHAVE_AVX -mavx -o CMakeFiles/cmTC_ccf3e.dir/src.c.o -c /home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp/src.c
+Building C object CMakeFiles/cmTC_f357a.dir/src.c.o
+/usr/bin/cc   -DHAVE_AVX -mavx -o CMakeFiles/cmTC_f357a.dir/src.c.o -c /home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp/src.c
 cc: error: unrecognized command-line option '-mavx'
-gmake[1]: *** [CMakeFiles/cmTC_ccf3e.dir/build.make:81: CMakeFiles/cmTC_ccf3e.dir/src.c.o] Error 1
+gmake[1]: *** [CMakeFiles/cmTC_f357a.dir/build.make:81: CMakeFiles/cmTC_f357a.dir/src.c.o] Error 1
 gmake[1]: Leaving directory '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
-gmake: *** [Makefile:134: cmTC_ccf3e/fast] Error 2
+gmake: *** [Makefile:134: cmTC_f357a/fast] Error 2
 
 
 Return value: 1
@@ -62,15 +62,15 @@ Source file was:
 Performing C SOURCE FILE Test HAVE_AVX2 failed with the following output:
 Change Dir: '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
 
-Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f2b15/fast
-/usr/bin/gmake  -f CMakeFiles/cmTC_f2b15.dir/build.make CMakeFiles/cmTC_f2b15.dir/build
+Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_22342/fast
+/usr/bin/gmake  -f CMakeFiles/cmTC_22342.dir/build.make CMakeFiles/cmTC_22342.dir/build
 gmake[1]: Entering directory '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_f2b15.dir/src.c.o
-/usr/bin/cc   -DHAVE_AVX2 -mavx2 -o CMakeFiles/cmTC_f2b15.dir/src.c.o -c /home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp/src.c
+Building C object CMakeFiles/cmTC_22342.dir/src.c.o
+/usr/bin/cc   -DHAVE_AVX2 -mavx2 -o CMakeFiles/cmTC_22342.dir/src.c.o -c /home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp/src.c
 cc: error: unrecognized command-line option '-mavx2'
-gmake[1]: *** [CMakeFiles/cmTC_f2b15.dir/build.make:81: CMakeFiles/cmTC_f2b15.dir/src.c.o] Error 1
+gmake[1]: *** [CMakeFiles/cmTC_22342.dir/build.make:81: CMakeFiles/cmTC_22342.dir/src.c.o] Error 1
 gmake[1]: Leaving directory '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
-gmake: *** [Makefile:134: cmTC_f2b15/fast] Error 2
+gmake: *** [Makefile:134: cmTC_22342/fast] Error 2
 
 
 Return value: 1
@@ -97,15 +97,15 @@ Source file was:
 Performing C SOURCE FILE Test HAVE_FMA failed with the following output:
 Change Dir: '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
 
-Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_af73c/fast
-/usr/bin/gmake  -f CMakeFiles/cmTC_af73c.dir/build.make CMakeFiles/cmTC_af73c.dir/build
+Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_a961c/fast
+/usr/bin/gmake  -f CMakeFiles/cmTC_a961c.dir/build.make CMakeFiles/cmTC_a961c.dir/build
 gmake[1]: Entering directory '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_af73c.dir/src.c.o
-/usr/bin/cc   -DHAVE_FMA -mfma -o CMakeFiles/cmTC_af73c.dir/src.c.o -c /home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp/src.c
+Building C object CMakeFiles/cmTC_a961c.dir/src.c.o
+/usr/bin/cc   -DHAVE_FMA -mfma -o CMakeFiles/cmTC_a961c.dir/src.c.o -c /home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp/src.c
 cc: error: unrecognized command-line option '-mfma'
-gmake[1]: *** [CMakeFiles/cmTC_af73c.dir/build.make:81: CMakeFiles/cmTC_af73c.dir/src.c.o] Error 1
+gmake[1]: *** [CMakeFiles/cmTC_a961c.dir/build.make:81: CMakeFiles/cmTC_a961c.dir/src.c.o] Error 1
 gmake[1]: Leaving directory '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
-gmake: *** [Makefile:134: cmTC_af73c/fast] Error 2
+gmake: *** [Makefile:134: cmTC_a961c/fast] Error 2
 
 
 Return value: 1
@@ -133,18 +133,18 @@ Source file was:
 Performing C SOURCE FILE Test HAVE_AVX512 failed with the following output:
 Change Dir: '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
 
-Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_4eafc/fast
-/usr/bin/gmake  -f CMakeFiles/cmTC_4eafc.dir/build.make CMakeFiles/cmTC_4eafc.dir/build
+Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_d99b5/fast
+/usr/bin/gmake  -f CMakeFiles/cmTC_d99b5.dir/build.make CMakeFiles/cmTC_d99b5.dir/build
 gmake[1]: Entering directory '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_4eafc.dir/src.c.o
-/usr/bin/cc   -DHAVE_AVX512 -mavx512f -mavx512cd -mavx512bw -mavx512dq -DLV_HAVE_AVX512 -o CMakeFiles/cmTC_4eafc.dir/src.c.o -c /home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp/src.c
+Building C object CMakeFiles/cmTC_d99b5.dir/src.c.o
+/usr/bin/cc   -DHAVE_AVX512 -mavx512f -mavx512cd -mavx512bw -mavx512dq -DLV_HAVE_AVX512 -o CMakeFiles/cmTC_d99b5.dir/src.c.o -c /home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp/src.c
 cc: error: unrecognized command-line option '-mavx512f'
 cc: error: unrecognized command-line option '-mavx512cd'
 cc: error: unrecognized command-line option '-mavx512bw'
 cc: error: unrecognized command-line option '-mavx512dq'
-gmake[1]: *** [CMakeFiles/cmTC_4eafc.dir/build.make:81: CMakeFiles/cmTC_4eafc.dir/src.c.o] Error 1
+gmake[1]: *** [CMakeFiles/cmTC_d99b5.dir/build.make:81: CMakeFiles/cmTC_d99b5.dir/src.c.o] Error 1
 gmake[1]: Leaving directory '/home/pi/srsRAN_4G/build/CMakeFiles/CMakeTmp'
-gmake: *** [Makefile:134: cmTC_4eafc/fast] Error 2
+gmake: *** [Makefile:134: cmTC_d99b5/fast] Error 2
 
 
 Return value: 1

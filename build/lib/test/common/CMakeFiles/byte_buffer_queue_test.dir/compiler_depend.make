@@ -335,6 +335,7 @@ lib/test/common/byte_buffer_queue_test: lib/src/common/libsrsran_common.a \
   /usr/lib/aarch64-linux-gnu/libc_nonshared.a \
   /usr/lib/aarch64-linux-gnu/libfftw3f.so \
   /usr/lib/aarch64-linux-gnu/libmbedcrypto.so \
+  /usr/lib/aarch64-linux-gnu/libsctp.so \
   /usr/lib/aarch64-linux-gnu/Scrt1.o \
   /usr/lib/aarch64-linux-gnu/crti.o \
   /usr/lib/aarch64-linux-gnu/crtn.o \
@@ -363,6 +364,8 @@ lib/test/common/CMakeFiles/byte_buffer_queue_test.dir/byte_buffer_queue_test.cc.
 /usr/lib/aarch64-linux-gnu/crtn.o:
 
 /usr/lib/aarch64-linux-gnu/Scrt1.o:
+
+/usr/lib/aarch64-linux-gnu/libsctp.so:
 
 /usr/lib/aarch64-linux-gnu/libboost_program_options.so.1.83.0:
 

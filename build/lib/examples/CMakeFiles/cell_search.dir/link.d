@@ -9,6 +9,7 @@ cell_search: \
   ../src/support/libsupport.a \
   ../src/srslog/libsrslog.a \
   /usr/lib/aarch64-linux-gnu/libmbedcrypto.so \
+  /usr/lib/aarch64-linux-gnu/libsctp.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libdl.a \
   ../src/phy/rf/libsrsran_rf_utils.a \
   ../src/phy/libsrsran_phy.a \
@@ -61,6 +62,8 @@ CMakeFiles/cell_search.dir/cell_search.c.o:
 ../src/srslog/libsrslog.a:
 
 /usr/lib/aarch64-linux-gnu/libmbedcrypto.so:
+
+/usr/lib/aarch64-linux-gnu/libsctp.so:
 
 /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libdl.a:
 

@@ -104,6 +104,7 @@ lib/test/rlc/rlc_um_test: /usr/lib/aarch64-linux-gnu/libfftw3f.so
 lib/test/rlc/rlc_um_test: lib/src/support/libsupport.a
 lib/test/rlc/rlc_um_test: lib/src/srslog/libsrslog.a
 lib/test/rlc/rlc_um_test: /usr/lib/aarch64-linux-gnu/libmbedcrypto.so
+lib/test/rlc/rlc_um_test: /usr/lib/aarch64-linux-gnu/libsctp.so
 lib/test/rlc/rlc_um_test: lib/test/rlc/CMakeFiles/rlc_um_test.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/pi/srsRAN_4G/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable rlc_um_test"
 	cd /home/pi/srsRAN_4G/build/lib/test/rlc && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/rlc_um_test.dir/link.txt --verbose=$(VERBOSE)

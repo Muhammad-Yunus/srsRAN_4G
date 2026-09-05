@@ -11,6 +11,7 @@ test_radio_rt_gain: \
   ../../support/libsupport.a \
   ../../srslog/libsrslog.a \
   /usr/lib/aarch64-linux-gnu/libmbedcrypto.so \
+  /usr/lib/aarch64-linux-gnu/libsctp.so \
   ../../phy/rf/libsrsran_rf.so.25.10.0 \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libdl.a \
   ../../phy/rf/libsrsran_rf_utils.a \
@@ -68,6 +69,8 @@ CMakeFiles/test_radio_rt_gain.dir/test_radio_rt_gain.cc.o:
 ../../srslog/libsrslog.a:
 
 /usr/lib/aarch64-linux-gnu/libmbedcrypto.so:
+
+/usr/lib/aarch64-linux-gnu/libsctp.so:
 
 ../../phy/rf/libsrsran_rf.so.25.10.0:
 

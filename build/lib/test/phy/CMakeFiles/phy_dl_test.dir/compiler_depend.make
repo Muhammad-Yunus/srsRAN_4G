@@ -284,6 +284,7 @@ lib/test/phy/phy_dl_test: lib/src/common/libsrsran_common.a \
   /usr/lib/aarch64-linux-gnu/libc_nonshared.a \
   /usr/lib/aarch64-linux-gnu/libfftw3f.so \
   /usr/lib/aarch64-linux-gnu/libmbedcrypto.so \
+  /usr/lib/aarch64-linux-gnu/libsctp.so \
   /usr/lib/aarch64-linux-gnu/Scrt1.o \
   /usr/lib/aarch64-linux-gnu/crti.o \
   /usr/lib/aarch64-linux-gnu/crtn.o \
@@ -306,6 +307,8 @@ lib/test/phy/CMakeFiles/phy_dl_test.dir/phy_dl_test.c.o:
 /usr/lib/aarch64-linux-gnu/libgcc_s.so.1:
 
 /usr/lib/aarch64-linux-gnu/Scrt1.o:
+
+/usr/lib/aarch64-linux-gnu/libsctp.so:
 
 /usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so:
 

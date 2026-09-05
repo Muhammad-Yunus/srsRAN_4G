@@ -17,6 +17,7 @@ rrc_reconfig_test: \
   ../../../../../lib/src/srslog/libsrslog.a \
   ../../../../../lib/src/support/libsupport.a \
   /usr/lib/aarch64-linux-gnu/libmbedcrypto.so \
+  /usr/lib/aarch64-linux-gnu/libsctp.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/libstdc++.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/libm.so \
@@ -80,6 +81,8 @@ CMakeFiles/rrc_reconfig_test.dir/rrc_reconfig_test.cc.o:
 ../../../../../lib/src/support/libsupport.a:
 
 /usr/lib/aarch64-linux-gnu/libmbedcrypto.so:
+
+/usr/lib/aarch64-linux-gnu/libsctp.so:
 
 /usr/lib/gcc/aarch64-linux-gnu/14/libstdc++.so:
 

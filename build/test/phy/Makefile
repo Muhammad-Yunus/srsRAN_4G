@@ -191,6 +191,44 @@ depend:
 	cd /home/pi/srsRAN_4G/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
+# Convenience name for target.
+test/phy/CMakeFiles/nr_phy_test.dir/rule:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/phy/CMakeFiles/nr_phy_test.dir/rule
+.PHONY : test/phy/CMakeFiles/nr_phy_test.dir/rule
+
+# Convenience name for target.
+nr_phy_test: test/phy/CMakeFiles/nr_phy_test.dir/rule
+.PHONY : nr_phy_test
+
+# fast build rule for target.
+nr_phy_test/fast:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f test/phy/CMakeFiles/nr_phy_test.dir/build.make test/phy/CMakeFiles/nr_phy_test.dir/build
+.PHONY : nr_phy_test/fast
+
+nr_phy_test.o: nr_phy_test.cc.o
+.PHONY : nr_phy_test.o
+
+# target to build an object file
+nr_phy_test.cc.o:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f test/phy/CMakeFiles/nr_phy_test.dir/build.make test/phy/CMakeFiles/nr_phy_test.dir/nr_phy_test.cc.o
+.PHONY : nr_phy_test.cc.o
+
+nr_phy_test.i: nr_phy_test.cc.i
+.PHONY : nr_phy_test.i
+
+# target to preprocess a source file
+nr_phy_test.cc.i:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f test/phy/CMakeFiles/nr_phy_test.dir/build.make test/phy/CMakeFiles/nr_phy_test.dir/nr_phy_test.cc.i
+.PHONY : nr_phy_test.cc.i
+
+nr_phy_test.s: nr_phy_test.cc.s
+.PHONY : nr_phy_test.s
+
+# target to generate assembly for a file
+nr_phy_test.cc.s:
+	cd /home/pi/srsRAN_4G/build && $(MAKE) $(MAKESILENT) -f test/phy/CMakeFiles/nr_phy_test.dir/build.make test/phy/CMakeFiles/nr_phy_test.dir/nr_phy_test.cc.s
+.PHONY : nr_phy_test.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -206,6 +244,10 @@ help:
 	@echo "... package_source"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... nr_phy_test"
+	@echo "... nr_phy_test.o"
+	@echo "... nr_phy_test.i"
+	@echo "... nr_phy_test.s"
 .PHONY : help
 
 
