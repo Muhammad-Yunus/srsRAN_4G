@@ -11,10 +11,10 @@
 
 | Operator | Short Name | MNC | Bands Active |
 |----------|-----------|-----|--------------|
-| Telkomsel | TSel | 01 | 3, 5*, 8, 28, 40 |
-| XL Axiata | XL | 08 | 3, 8, 28 |
-| Indosat Ooredoo Hutchison (IOH) | IOH | 01 | 3, 8, 28 |
-| Smartfren | Smartfren | 09, 28 | 5, 40 |
+| Telkomsel | TSel | 10 | 3, 5*, 8, 28, 40 |
+| XL Axiata | XL | 11 | 3, 8, 28 |
+| Indosat Ooredoo Hutchison (IOH) | IOH | 1 | 3, 8, 28 |
+| Smartfren | Smartfren | 9, 28 | 5, 40 |
 
 > *Band 5 only Smartfren in Indonesia  
 > **Note**: Post-merger (Jan 2022), Indosat & Tri spectrum has been refarmed under single IOH entity
@@ -27,14 +27,13 @@
 
 | EARFCN Range | F_DL (MHz) | MNC | Operator |
 |--------------|------------|-----|----------|
-| 1200-1399 | 1805-1824.9 | 01 | Telkomsel |
-| 1400-1599 | 1825-1844.9 | 08 | XL Axiata |
-| 1600-1799 | 1845-1864.9 | 01 | Indosat Ooredoo Hutchison |
-| 1800-1949 | 1865-1884.9 | 01 | Indosat Ooredoo Hutchison |
+| 1200-1399 | 1805-1824.9 | 10 | Telkomsel |
+| 1400-1599 | 1825-1844.9 | 11 | XL Axiata |
+| 1600-1949 | 1845-1884.9 | 1 | Indosat Ooredoo Hutchison |
 
 **Formula**: `F_DL = 1805 + 0.1 × (EARFCN - 1200)` MHz
 
-> **Note**: Post-merger, Indosat & Tri blocks have been refarmed. MNC 01 now represents combined IOH spectrum.
+> **Note**: Post-merger, Indosat & Tri blocks consolidated under MNC 1 (IOH).
 
 ---
 
@@ -42,9 +41,9 @@
 
 | EARFCN Range | F_DL (MHz) | MNC | Operator |
 |--------------|------------|-----|----------|
-| 2400-2649 | 869-893.9 | 09 | Smartfren |
+| 2400-2649 | 869-893.9 | 9 | Smartfren |
 
-> **Note**: In Indonesia, Band 5 is exclusively used by Smartfren (MNC 09). Telkomsel does NOT operate in Band 5 in Indonesia.
+> **Note**: In Indonesia, Band 5 is exclusively used by Smartfren (MNC 9). Telkomsel does NOT operate in Band 5 in Indonesia.
 
 **Formula**: `F_DL = 869 + 0.1 × (EARFCN - 2400)` MHz
 
@@ -54,13 +53,13 @@
 
 | EARFCN Range | F_DL (MHz) | MNC | Operator |
 |--------------|------------|-----|----------|
-| 3450-3549 | 925-934.9 | 01 | Telkomsel |
-| 3550-3649 | 935-944.9 | 08 | XL Axiata |
-| 3650-3799 | 945-959.9 | 01 | Indosat Ooredoo Hutchison |
+| 3450-3549 | 925-934.9 | 10 | Telkomsel |
+| 3550-3649 | 935-944.9 | 11 | XL Axiata |
+| 3650-3799 | 945-959.9 | 1 | Indosat Ooredoo Hutchison |
 
 **Formula**: `F_DL = 925 + 0.1 × (EARFCN - 3450)` MHz
 
-> **Note**: Post-merger, Indosat & Tri blocks consolidated under MNC 01.
+> **Note**: Post-merger, Indosat & Tri blocks consolidated under MNC 1.
 
 ---
 
@@ -68,9 +67,9 @@
 
 | EARFCN Range | F_DL (MHz) | MNC | Operator |
 |--------------|------------|-----|----------|
-| 9210-9359 | 758-772.9 | 01 | Telkomsel |
-| 9360-9509 | 773-787.9 | 01 | Indosat Ooredoo Hutchison |
-| 9510-9649 | 788-802.9 | 08 | XL Axiata |
+| 9210-9359 | 758-772.9 | 10 | Telkomsel |
+| 9360-9509 | 773-787.9 | 1 | Indosat Ooredoo Hutchison |
+| 9510-9649 | 788-802.9 | 11 | XL Axiata |
 
 **Formula**: `F_DL = 758 + 0.1 × (EARFCN - 9210)` MHz
 
@@ -82,8 +81,8 @@
 
 | EARFCN Range | F_DL (MHz) | MNC | Operator |
 |--------------|------------|-----|----------|
-| 38650-39049 | 2300-2339.9 | 01 | Telkomsel |
-| 39050-39649 | 2340-2399.9 | 09, 28 | Smartfren |
+| 38650-39049 | 2300-2339.9 | 10 | Telkomsel |
+| 39050-39649 | 2340-2399.9 | 9, 28 | Smartfren |
 
 > **⚠️ CRITICAL**: Band 40 is **EXCLUSIVELY** owned by Telkomsel and Smartfren in Indonesia. XL Axiata, Indosat Ooredoo, and Hutchison 3 **DO NOT** have spectrum in this band.
 
@@ -95,13 +94,19 @@
 
 | MNC | Operator | Notes |
 |-----|----------|-------|
-| 01 | Telkomsel | Largest operator in Indonesia |
-| 01 | Indosat Ooredoo Hutchison | Post-merger entity (Jan 2022) |
-| 08 | XL Axiata | Includes former AXIS brand |
-| 09 | Smartfren | CDMA-to-LTE refarmed, Band 5 exclusive |
+| 10 | Telkomsel | Largest operator in Indonesia |
+| 11 | XL Axiata | Includes former AXIS brand (now merged) |
+| 1 | Indosat Ooredoo Hutchison | Post-merger entity (Jan 2022), combines former Indosat & Tri |
+| 9 | Smartfren | CDMA-to-LTE refarmed, Band 5 exclusive |
 | 28 | Smartfren | TDD operations on Band 40 |
 
-> **Historical Note**: MNC 21 (Indosat old) and MNC 89 (Tri) are deprecated. MNC 08 was formerly AXIS, now fully merged into XL Axiata.
+### Deprecated MNCs (Historical Reference)
+
+| MNC | Former Operator | Status |
+|-----|----------------|--------|
+| 21 | Indosat (old) | Merged into IOH (MNC 1) |
+| 89 | Hutchison 3 / Tri | Spectrum merged into IOH (MNC 1) |
+| 8 | AXIS (former) | Fully merged into XL Axiata (MNC 11) |
 
 ---
 
@@ -126,16 +131,19 @@ typedef struct {
 ### Check Operator by EARFCN
 ```c
 // Example: EARFCN 1250 → Telkomsel (Band 3)
-lte_scan_lookup_operator(1250) → {"Telkomsel", "Band 3"}
+lte_scan_lookup_operator(1250) → {"Telkomsel", "Band 3", MNC 10}
 
 // Example: EARFCN 2500 → Smartfren (Band 5)
-lte_scan_lookup_operator(2500) → {"Smartfren", "Band 5"}
+lte_scan_lookup_operator(2500) → {"Smartfren", "Band 5", MNC 9}
 
 // Example: EARFCN 3600 → XL Axiata (Band 8)
-lte_scan_lookup_operator(3600) → {"XL Axiata", "Band 8"}
+lte_scan_lookup_operator(3600) → {"XL Axiata", "Band 8", MNC 11}
 
 // Example: EARFCN 9360 → IOH (Band 28)
-lte_scan_lookup_operator(9360) → {"Indosat Ooredoo Hutchison", "Band 28"}
+lte_scan_lookup_operator(9360) → {"Indosat Ooredoo Hutchison", "Band 28", MNC 1}
+
+// Example: EARFCN 39100 → Smartfren (Band 40)
+lte_scan_lookup_operator(39100) → {"Smartfren", "Band 40", MNC 9/28}
 ```
 
 ### Filter by Operator
@@ -162,6 +170,7 @@ lte-scan full 40 | grep Smartfren
 
 | Date | Change | Author |
 |------|--------|--------|
-| 2026-09-06 | Major correction: Fixed MNC codes, Band 40 exclusion, Band 28 formula offset | Muhammad Yunus |
+| 2026-09-06 | Final correction: Telkomsel MNC 10, XL MNC 11, IOH MNC 1 | Muhammad Yunus |
+| 2026-09-06 | Fixed Band 40 exclusion, Band 28 formula offset | Muhammad Yunus |
 | 2026-09-05 | Fixed Band 5 mapping (removed incorrect Telkomsel entry) | Muhammad Yunus |
 | 2026-09-01 | Added Indonesia operator database documentation | Muhammad Yunus |
