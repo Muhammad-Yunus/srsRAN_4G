@@ -157,10 +157,13 @@ int main(int argc, char* argv[])
         if (n > 0 && g_running) {
             for (int i = 0; i < n && g_running; i++) {
                 if (!quiet) fprintf(stderr, "  [%d/%d] EARFCN %d\n", i+1, n, scan.coarse_earfcns[i]);
-                lte_scan_fine(&scan, scan.coarse_earfcns[i]);
+                lte_scan_fine(&scan, scan.coarse_earfcns[i], 0.0f);
             }
         }
         n = scan.nof_results;
+    } else if (balance_mode) {
+        if (!quiet) fprintf(stderr, "Balance scan Band %d...\n", band);
+        n = lte_scan_balance(&scan, band, earfcn_s, earfcn_e);
     } else {
         if (!quiet) fprintf(stderr, "Fast scan Band %d...\n", band);
         n = lte_scan_fast(&scan, band, earfcn_s, earfcn_e);

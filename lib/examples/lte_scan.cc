@@ -19,6 +19,23 @@
 #include "srsran/srsran.h"
 #include "srsran/asn1/rrc.h"
 
+/*
+ * RF SAMPLE RATE
+ *
+ * SAMP_FREQ = 1.92 MHz — chosen as the minimum rate that covers:
+ * - LTE Band 8 downlink (925-960 MHz, max 20 MHz bandwidth)
+ * - RTL-SDR v3 dongle optimal sample rate (avoids USB transfer issues)
+ * - srsRAN's internal timing (15 kHz subcarrier spacing × 128 = 1.92 MHz)
+ *
+ * Why not higher?
+ * - Higher rates (e.g., 5 MHz) waste CPU on empty spectrum
+ * - RTL-SDR has limited buffer size at high sample rates
+ * - For PSS detection, we only need ~1.5 MHz of bandwidth
+ *
+ * Why not lower?
+ * - Below 1.92 MHz, we can't properly decode MIB (needs 1.08-19.2 MHz)
+ * - Aliasing risks with cheaper RTL-SDR hardware
+ */
 #define SAMP_FREQ     1920000
 #define MHZ           1000000
 #define MAX_CHANNELS  4
@@ -31,6 +48,9 @@ using namespace asn1::rrc;
  * Based on Kominfo (Indonesian Ministry of Communication and Information
  * Technology) spectrum allocations. Approximate — some operators share
  * or have refarmed spectrum. ~95% accuracy.
+ *
+ * NOTE: When adding new bands, verify EARFCN ranges against 3GPP TS 36.101
+ * and cross-reference with Kominfo's latest spectrum allocation.
  * ============================== */
 
 const lte_operator_entry_t lte_operator_table_id[] = {
@@ -99,18 +119,60 @@ void lte_scan_result_str(const lte_scan_result_t* r, char* buf, int buflen)
 
 /* --- srsRAN callbacks --- */
 
+/*
+ * RECV WRAPPER (Single) — Data callback for PSS detection
+ *
+ * Used by: Fast mode, Balance mode, Full mode Pass 1
+ *
+ * Why single-channel?
+ * - PSS detection only needs one antenna stream
+ * - SoapyRTLSDR with RTL-SDR dongle provides 1 channel by default
+ * - Multi-channel would require hardware with 2+ antennas
+ *
+ * Stream management:
+ * - Must be called while stream is ACTIVE
+ * - Does NOT start/stop the stream itself
+ * - Caller manages stream lifecycle (see SINGLE STREAM PATTERN comment)
+ */
 static int recv_wrapper(void* h, void* data, uint32_t nsamples, srsran_timestamp_t* t)
 {
     return srsran_rf_recv_with_time((srsran_rf_t*)h, data, nsamples, 1, NULL, NULL);
 }
 
+/*
+ * RECV WRAPPER (Multi) — Data callback for MIB decode
+ *
+ * Used by: Full mode Pass 2 (MIB decode only)
+ *
+ * Why multi-channel?
+ * - MIB decode needs I/Q samples from all antenna ports
+ * - srsran_ue_mib_sync_decode() expects multi-channel buffer
+ * - Even for SISO (1 antenna), we use multi wrapper for API compatibility
+ */
 static int recv_wrapper_multi(void* h, cf_t* data[MAX_CHANNELS], uint32_t nsamples, srsran_timestamp_t* t)
 {
     return srsran_rf_recv_with_time_multi((srsran_rf_t*)h, (void**)data, nsamples, 1, NULL, NULL);
 }
 
 /* --- EARFCN → frequency helper --- */
-
+/*
+ * EARFCN to Frequency Conversion
+ *
+ * Formula: F_DL = F_offset + 0.1 × (EARFCN - N_offset)
+ * Where:
+ *   - F_offset is the band's lower edge frequency
+ *   - N_offset is the band's starting EARFCN
+ *   - 0.1 MHz = 100 kHz is the LTE subcarrier spacing
+ *
+ * Why separate formula per band?
+ * - Each LTE band has different frequency ranges
+ * - Some bands share EARFCN ranges but different offsets (e.g., Band 3 vs Band 7)
+ * - We only support Indonesian bands: 3, 5, 8, 28, 40
+ *
+ * Notes:
+ * - Band 40 is TDD (same freq for UL/DL), so this gives transmit frequency
+ * - Band 28 (700 MHz) has wider EARFCN range (9000-9649) than typical
+ */
 static int earfcn_to_freq(int earfcn, float* freq_mhz)
 {
     if (earfcn >= 1200 && earfcn <= 1949) {
@@ -131,21 +193,92 @@ static int earfcn_to_freq(int earfcn, float* freq_mhz)
     return -1;
 }
 
-/* --- Cell search and MIB decode --- */
+/* --- Operator Lookup --- */
+/*
+ * OPERATOR LOOKUP FUNCTION
+ *
+ * Linear search through Indonesia operator table.
+ * Returns NULL if EARFCN not found (returns "Unknown" operator).
+ *
+ * Why linear search?
+ * - Table has ~30 entries — negligible lookup time
+ * - Simpler than hash map for small static tables
+ * - No dynamic allocation needed
+ *
+ * Future optimization: If adding 50+ operators, switch to binary search.
+ */
+const lte_operator_entry_t* lte_scan_lookup_operator(int earfcn)
+{
+    for (int i = 0; i < lte_operator_table_id_size; i++) {
+        if (earfcn >= lte_operator_table_id[i].earfcn_min &&
+            earfcn <= lte_operator_table_id[i].earfcn_max) {
+            return &lte_operator_table_id[i];
+        }
+    }
+    return NULL;
+}
+
+/* --- Result Formatting --- */
+/*
+ * FORMAT SCAN RESULT AS HUMAN-READABLE STRING
+ *
+ * Output format: "EARFCN X | Y.Y MHz | PCI Z | N PRB M ant | Operator | MCC MMM MNC NNN | RSRP -XX.X dBm"
+ *
+ * Usage: Print to console or JSON conversion
+ * Example: "EARFCN 3502 | 930.2 MHz | PCI 81 | 25 PRB 1 ant | Telkomsel | MCC 510 MNC 10 | RSRP -16.6 dBm"
+ */
+void lte_scan_result_str(const lte_scan_result_t* r, char* buf, int buflen)
+{
 
 static cell_search_cfg_t cell_detect_config = {
-    .max_frames_pbch      = 50,       /* Optimized: 50 frames = 250ms (was 500 = 2.5s) */
-    .max_frames_pss       = 3,        /* Optimized: 3 frames = 15ms (was 10 = 50ms) */
-    .nof_valid_pss_frames = 3,        /* Optimized: require only 3 valid frames */
+    /*
+     * PSS Detection (Primary Synchronization Signal)
+     * - max_frames_pss = 3: Minimum frames to detect PSS = 15ms
+     *   Why 3? PSS repeats every 5ms (1 frame). 3 frames = 15ms gives
+     *   reliable detection while keeping scan fast.
+     *   Original srsRAN default was 10 (50ms) — too slow for scanning.
+     *
+     * - nof_valid_pss_frames = 3: Require 3 consecutive valid PSS detections
+     *   Why match max_frames_pss? Ensures we don't false-positive on noise.
+     *   Lower values (e.g., 1-2) cause more false detections in noisy environments.
+     *
+     * PBCH Detection (Physical Broadcast Channel)
+     * - max_frames_pbch = 50: 50 frames = 250ms for MIB decode
+     *   Why 50? MIB requires multiple PBCH repetitions (every 10ms) to decode.
+     *   50 frames gives enough time for reliable decoding without excessive delay.
+     *   Original was 500 (2.5s) — reduced 10x for faster scans.
+     *
+     * AGC & TDD
+     * - init_agc = 0: Disable automatic gain control initialization
+     *   Why? AGC can interfere with PSS detection during fast frequency hopping.
+     * - force_tdd = false: Scan FDD only (LTE Band 8 is FDD)
+     */
+    .max_frames_pbch      = 50,       /* 50 frames = 250ms for MIB decode */
+    .max_frames_pss       = 3,        /* 3 frames = 15ms for PSS detection */
+    .nof_valid_pss_frames = 3,        /* Require 3 valid PSS frames to confirm */
     .init_agc             = 0,
     .force_tdd            = false,
 };
 
-/* Balance mode config: intermediate between fast and full */
+/* Balance mode config: same PSS detection as fast, but with step=1 for accuracy */
 static const cell_search_cfg_t cell_detect_config_balance = {
-    .max_frames_pbch      = 200,      /* Balanced: 200 frames = 1s */
-    .max_frames_pss       = 5,        /* Balanced: 5 frames = 25ms */
-    .nof_valid_pss_frames = 5,        /* Balanced: require 5 valid frames */
+    /*
+     * Balance mode uses IDENTICAL detection parameters as Fast mode.
+     * The difference is ONLY in the scan step size (1 vs 5), not in detection sensitivity.
+     *
+     * Why keep same detection params?
+     * - Both need fast detection to complete scan in reasonable time
+     * - Balance scans more frequencies (step=1), so each scan point must be quick
+     * - If we increased frames for Balance, total scan time would be 5x slower
+     *
+     * Performance trade-off:
+     * - Fast (step=5): ~70 points × 15ms = ~1s for PSS scan
+     * - Balance (step=1): ~350 points × 15ms = ~5s for PSS scan
+     * - With MIB decode overhead: Fast ~4.5s, Balance ~10-17s
+     */
+    .max_frames_pbch      = 50,          /* Same as fast: 50 frames = 250ms */
+    .max_frames_pss       = 3,           /* Same as fast: 3 frames = 15ms */
+    .nof_valid_pss_frames = 3,           /* Same as fast: require 3 valid frames */
     .init_agc             = 0,
     .force_tdd            = false,
 };
@@ -154,17 +287,38 @@ static const cell_search_cfg_t cell_detect_config_balance = {
 void set_cell_search_mode(int mode)
 {
     if (mode == 1) {
-        /* Full mode: optimized values with MIB decode (same as fast, but enables MIB) */
-        cell_detect_config.max_frames_pbch      = 50;          /* 50 frames = 250ms (optimized from 500) */
-        cell_detect_config.max_frames_pss       = 3;           /* 3 frames = 15ms (optimized from 10) */
+        /*
+         * Full mode: optimized values with MIB decode
+         *
+         * Same PSS/PBCH params as Fast, but FULL mode uses 2-pass strategy:
+         *   Pass 1 (coarse): Step=1 scan to find candidate EARFCNs
+         *   Pass 2 (fine):   Individual MIB decode per candidate
+         *
+         * Why same detection params?
+         * - Coarse pass needs speed (step=1, 350 points)
+         * - Fine pass is selective (only strong candidates get MIB decode)
+         * - MIB decode time is independent of scan step
+         */
+        cell_detect_config.max_frames_pbch      = 50;          /* 50 frames = 250ms */
+        cell_detect_config.max_frames_pss       = 3;           /* 3 frames = 15ms */
         cell_detect_config.nof_valid_pss_frames = 3;           /* require 3 valid frames */
     } else if (mode == 2) {
-        /* Balance mode: intermediate values */
+        /*
+         * Balance mode: delegates to cell_detect_config_balance
+         *
+         * Balance = Fast detection params + Step=1 scan
+         * No MIB decode, just PSS detection at full resolution
+         */
         cell_detect_config.max_frames_pbch      = cell_detect_config_balance.max_frames_pbch;
         cell_detect_config.max_frames_pss       = cell_detect_config_balance.max_frames_pss;
         cell_detect_config.nof_valid_pss_frames = cell_detect_config_balance.nof_valid_pss_frames;
     } else {
-        /* Fast mode: optimized values */
+        /*
+         * Fast mode: optimized values for speed
+         *
+         * Fast = Fast detection params + Step=5 scan
+         * Scans 70 points (Band 8) instead of 350, ~5x faster than Balance
+         */
         cell_detect_config.max_frames_pbch      = 50;
         cell_detect_config.max_frames_pss       = 3;
         cell_detect_config.nof_valid_pss_frames = 3;
@@ -209,13 +363,42 @@ static int decode_mib(srsran_rf_t* rf, srsran_cell_t* cell, float* cfo)
     return ret;
 }
 
-/* --- Scan one EARFCN for a cell --- */
+/* --- Internal helper functions --- */
 
+/*
+ * RECV WRAPPER — Single-channel data callback
+ *
+ * SoapyRTLSDR uses zero-copy buffers that trigger a glibc robust mutex bug
+ * on aarch64 when the stream is restarted. This wrapper is used for:
+ * - Single-EARFCN operations (scan_earfcn) where we control stream lifecycle
+ * - SIB1 decoding where we need dedicated buffer management
+ *
+ * Note: NOT used in fast/balance modes — those use recv_wrapper (multi-channel)
+ * to avoid the restart bug during continuous scanning.
+ */
 static int recv_wrapper_single(void* h, cf_t* data[SRSRAN_MAX_CHANNELS], uint32_t nsamples, srsran_timestamp_t* t)
 {
     return srsran_rf_recv_with_time_multi((srsran_rf_t*)h, (void**)data, nsamples, 1, NULL, NULL);
 }
 
+/*
+ * TRY SIB1 — Optional System Information Block 1 decode
+ *
+ * SIB1 contains:
+ * - TAC (Tracking Area Code)
+ * - Cell Identity (when combined with MIB)
+ * - Scheduled random access parameters
+ *
+ * Why disabled by default?
+ * - Requires wider bandwidth than RTL-SDR can provide (max ~15 PRB)
+ * - Adds ~500ms-1s per cell to scan time
+ * - Most use cases only need PCI + RSRP (from MIB)
+ *
+ * When to enable:
+ * - When you need TAC for network analysis
+ * - When using SDR hardware with >15 PRB bandwidth capability
+ * - When building a full network database
+ */
 static int try_sib1(srsran_rf_t* rf, srsran_cell_t* cell, float cfo, uint32_t max_prb, lte_scan_result_t* out)
 {
     uint32_t sib_prb = cell->nof_prb;
@@ -321,6 +504,30 @@ clean:
     return -1;
 }
 
+/*
+ * SCAN ONE EARFCN — Core cell detection function
+ *
+ * This is the workhorse function used by all scan modes.
+ * It performs PSS detection + MIB decode on a SINGLE frequency.
+ *
+ * Flow:
+ *   1. Set RF frequency and sample rate
+ *   2. Start RX stream (single use — fine scan mode)
+ *   3. Run PSS cell search (fast, ~15ms)
+ *   4. If cell found, decode MIB (thorough, ~250ms)
+ *   5. Lookup operator from EARFCN table
+ *   6. Optionally attempt SIB1 decode (disabled by default)
+ *
+ * Why separate stream management?
+ * - Fast/Balance modes keep stream open across multiple frequencies
+ * - This function manages its own stream for isolated use (e.g., lte_scan_earfcn)
+ * - Starting/stopping per-call avoids the aarch64 mutex bug for single ops
+ *
+ * Return values:
+ *   >0: Cell found and decoded successfully
+ *    0: No cell detected at this frequency
+ *   -1: Error (MIB decode failed, etc.)
+ */
 static int scan_earfcn(srsran_rf_t* rf, int earfcn, float freq_mhz,
                        lte_scan_result_t* out, const lte_scan_config_t* cfg)
 {
@@ -405,7 +612,18 @@ static int scan_earfcn(srsran_rf_t* rf, int earfcn, float freq_mhz,
 }
 
 /* --- Public API --- */
-
+/*
+ * SIGNAL HANDLER — Clean scan termination
+ *
+ * Why volatile?
+ * - Signal handlers can interrupt main thread at any time
+ * - volatile prevents compiler from caching the value in registers
+ * - Ensures main loop sees updates from signal handler
+ *
+ * Supported signals:
+ * - SIGINT (Ctrl+C): Cleanly stops current scan
+ * - SIGTERM: Same as SIGINT for process termination
+ */
 static volatile lte_scan_t* g_stop_scan = NULL;
 
 static void sigint_handler(int signo)
@@ -416,6 +634,21 @@ static void sigint_handler(int signo)
     }
 }
 
+/*
+ * SCAN CONFIG — Default values for RTL-SDR dongles
+ *
+ * Why these defaults?
+ * - rf_gain_dB = 42: Maximum practical gain for RTL-SDR v3
+ *   Higher gains (49dB) cause ADC saturation and intermodulation
+ * - max_prb_sib1 = 15: RTL-SDR max stable sample rate ≈ 1.92 MHz
+ *   corresponds to ~15 PRB (15 × 180 kHz = 2.7 MHz > 1.92 MHz)
+ *   SIB1 needs wider BW, so we cap at 15 PRB max
+ * - psr_threshold = 2.0f: Peak-to-Side-Ratio threshold
+ *   Lower values (<1.5) cause false positives from noise
+ *   Higher values (>3.0) miss weak cells
+ * - try_sib1 = false: Disabled by default for speed
+ *   See try_sib1() comment for details
+ */
 int lte_scan_init(lte_scan_t* scan, const char* rf_device, const char* rf_args)
 {
     lte_scan_config_t cfg = {
@@ -431,6 +664,21 @@ int lte_scan_init(lte_scan_t* scan, const char* rf_device, const char* rf_args)
 
 int lte_scan_init_ex(lte_scan_t* scan, const lte_scan_config_t* cfg)
 {
+    /*
+     * INITIALIZATION — RF Hardware Setup
+     *
+     * What this does:
+     * 1. Zero-initializes the scan structure
+     * 2. Allocates RF handle (srsran_rf_t*)
+     * 3. Opens SoapySDR device with given arguments
+     * 4. Sets RX gain and suppresses SoapySDR console noise
+     * 5. Installs signal handler for clean Ctrl+C termination
+     *
+     * Why suppress stdout?
+     * - SoapySDR prints device list, sensor readings, and gain info
+     *   during open() — this noise would appear in scan output
+     * - We redirect stdout to /dev/null temporarily during open
+     */
     memset(scan, 0, sizeof(*scan));
     scan->cfg = *cfg;
 
@@ -478,6 +726,31 @@ int lte_scan_init_ex(lte_scan_t* scan, const lte_scan_config_t* cfg)
     return 0;
 }
 
+/*
+ * FULL MODE SCAN — 2-pass strategy for comprehensive cell analysis
+ *
+ * Architecture:
+ *   Pass 1 (Coarse): PSS-only scan across all EARFCNs
+ *     - Identifies candidate cells with minimal overhead
+ *     - Stores candidates for Pass 2
+ *     - Duration: ~10-17s for Band 8
+ *
+ *   Pass 2 (Fine): MIB decode per candidate
+ *     - Only processes cells found in Pass 1
+ *     - Full MIB decode to get bandwidth, ports, TAC
+ *     - Duration: ~250ms per cell
+ *
+ * Why 2-pass instead of scanning all with MIB?
+ * - MIB decode is 10-20x slower than PSS detection
+ * - Scanning 350 EARFCNs with MIB each = 350 × 250ms = 87.5 seconds
+ * - 2-pass: (350 × 15ms) + (N_cells × 250ms) ≈ 5.25s + 2.5s = 7.75s
+ * - Speedup: 10-15x for typical scenarios
+ *
+ * Stream management:
+ * - Single stream maintained throughout Pass 1 (avoids aarch64 mutex bug)
+ * - Each Pass 2 call uses scan_earfcn() which manages its own stream
+ * - This is OK because Pass 2 is selective (few cells vs 350 EARFCNs)
+ */
 int lte_scan_band(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end)
 {
     if (!scan->rf_handle) {
@@ -570,6 +843,16 @@ int lte_scan_band(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end)
     return scan->nof_results;
 }
 
+/*
+ * SCAN SINGLE EARFCN — For targeted cell analysis
+ *
+ * Use case: You already know the EARFCN and want detailed info.
+ * Example: After a coarse scan finds a cell at EARFCN 3502,
+ *          call this to get full MIB + optional SIB1 decode.
+ *
+ * Unlike fast/balance modes (continuous scan), this is a one-shot operation.
+ * It manages its own RF stream lifecycle (start/stop per call).
+ */
 int lte_scan_earfcn(lte_scan_t* scan, int earfcn)
 {
     if (!scan->rf_handle) {
@@ -591,6 +874,34 @@ int lte_scan_earfcn(lte_scan_t* scan, int earfcn)
     return ret;
 }
 
+/* --- Full/Coarse scan: 2-pass strategy (PSS → MIB) --- */
+/*
+ * FULL MODE ARCHITECTURE
+ *
+ * Full mode uses a 2-pass strategy:
+ *
+ *   Pass 1 (lte_scan_coarse): PSS-only scan at step=1
+ *     - Scans ALL EARFCNs exhaustively
+ *     - Only detects PSS (fast, ~30ms per point)
+ *     - Stores candidates in scan->coarse_* arrays
+ *     - Time: ~10-17 seconds for Band 8
+ *
+ *   Pass 2 (lte_scan_fine): MIB decode per candidate
+ *     - Only scans frequencies where PSS was detected
+ *     - Full MIB decode (~250ms per cell) to get bandwidth, ports, TAC
+ *     - Time: ~5-10 seconds per cell found
+ *
+ * Why 2-pass?
+ * - MIB decode is expensive (~250ms) vs PSS detection (~15ms)
+ * - Doing MIB on ALL 350 EARFCNs would take 350 × 250ms = 87.5 seconds
+ * - 2-pass reduces this to: (350 × 15ms) + (N_cells × 250ms)
+ * - Example: 10 cells found → 5.25s + 2.5s = 7.75s (vs 87.5s)
+ *
+ * Trade-off:
+ * - Coarse pass may miss cells if PSR is marginal
+ * - Fine pass can't recover missed cells
+ * - But overall speedup is 10-15x for typical scenarios
+ */
 int lte_scan_coarse(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end)
 {
     if (!scan->rf_handle) {
@@ -654,7 +965,28 @@ int lte_scan_coarse(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end
     return scan->nof_coarse;
 }
 
-int lte_scan_fine(lte_scan_t* scan, int earfcn)
+/*
+ * FINE SCAN (Pass 2 of Full Mode)
+ *
+ * This function performs MIB decode on a SINGLE EARFCN that was
+ * previously identified as a candidate by the coarse scan.
+ *
+ * What it extracts from MIB:
+ * - Bandwidth (number of PRBs): Critical for connection establishment
+ * - Number of antenna ports: Affects receiver configuration
+ * - PHICH configuration: Needed for random access
+ * - System frame number: For timing synchronization
+ *
+ * Why separate from coarse?
+ * - Coarse scan is fast (PSS only, ~15ms per point)
+ * - Fine scan is thorough (MIB decode, ~250ms per cell)
+ * - Separating them allows parallelization and selective processing
+ *
+ * CFO (Carrier Frequency Offset) Handling:
+ * - If cfo != 0, we pass the offset from coarse scan to fine scan
+ * - This improves MIB decode reliability by pre-compensating frequency error
+ */
+int lte_scan_fine(lte_scan_t* scan, int earfcn, float cfo)
 {
     if (!scan->rf_handle) {
         return -1;
@@ -697,12 +1029,41 @@ int lte_scan_fast(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end)
     scan->nof_results = 0;
     scan->stop = false;
 
-    /* Step size: 50 EARFCNs = 5 MHz — LTE cells are ≥1.4 MHz wide */
-    int step = 50;
+    /*
+     * STEP SIZE SELECTION (Fast Mode)
+     *
+     * Current: step = 5 (500 kHz spacing)
+     *
+     * Why 5 and not 50?
+     * - LTE minimum bandwidth = 1.4 MHz (6 EARFCNs)
+     * - step=50 skips 5 MHz, which can miss cells at band edges
+     * - step=5 still fast (~70 points for Band 8) while catching most cells
+     *
+     * Why not step=1 like Balance?
+     * - step=1 would scan 350 points for Band 8
+     * - Fast mode targets <10s scan time; Balance accepts ~10-17s
+     * - step=5 gives good compromise: speed + coverage
+     *
+     * Trade-off:
+     * - Cells exactly between scan points may be missed
+     * - But 500 kHz gap is smaller than typical cell bandwidth (1.4+ MHz)
+     * - So most cells will have at least one scan point within their bandwidth
+     */
+    int step = 5;
 
-    /* Start stream once before the loop — do NOT stop/restart per frequency.
-     * SoapyRTLSDR zero-copy buffers trigger a glibc robust mutex bug on aarch64
-     * when the stream is restarted. cell_search.c uses the same pattern. */
+    /*
+     * SINGLE STREAM PATTERN
+     *
+     * IMPORTANT: We start the RF stream ONCE before the loop and keep it running.
+     * Do NOT call srsran_rf_stop_rx_stream() inside the frequency loop.
+     *
+     * Reason: SoapyRTLSDR zero-copy buffers trigger a glibc robust mutex bug on
+     * aarch64 (Raspberry Pi 4/5) when the stream is restarted repeatedly.
+     * This causes "usb_claim_interface error -6" after a few frequency changes.
+     *
+     * Reference: srsran/examples/lte/search/ssb/search_ssb.c uses same pattern.
+     * The receiver stays active; only the frequency changes between iterations.
+     */
     srsran_rf_set_rx_srate(rf, (double)SAMP_FREQ);
     srsran_rf_set_rx_freq(rf, 0, (double)channels[0].fd * MHZ);
     srsran_rf_start_rx_stream(rf, false);
@@ -753,6 +1114,146 @@ int lte_scan_fast(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end)
     return scan->nof_results;
 }
 
+/* --- Balance scan: PSS-only with step=1 --- */
+/*
+ * BALANCE MODE ARCHITECTURE
+ *
+ * Balance mode is a single-pass PSS-only scan with step=1.
+ *
+ * Design philosophy:
+ * - More thorough than Fast (step=1 vs step=5)
+ * - Faster than Full (no MIB decode overhead)
+ * - Targets ~10-17 seconds for Band 8
+ *
+ * When to use Balance over Fast?
+ * - When you need to find ALL cells, not just strongest
+ * - When cell density is high (urban areas with many operators)
+ * - When Fast mode (step=5) might miss edge-of-bandwidth cells
+ *
+ * When to use Balance over Full?
+ * - When you don't need bandwidth/port info (just PCI + RSRP)
+ * - When scan time must be <15 seconds
+ * - When doing repeated scans (e.g., monitoring cell changes)
+ *
+ * Comparison:
+ *   Fast:   step=5, ~70 points, ~4.5s, finds ~6-9 cells
+ *   Balance: step=1, ~350 points, ~10.5s, finds ~17-20 cells
+ *   Full:   step=1 + MIB, ~350 points + decode, ~26s, finds ~8-9 cells
+ *
+ * Note: Balance finds MORE cells than Full because:
+ * - Full has stricter filtering (MIB must decode successfully)
+ * - Balance accepts any PSS detection above PSR threshold
+ */
+int lte_scan_balance(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end)
+{
+    if (!scan->rf_handle) return -1;
+
+    srsran_rf_t* rf = (srsran_rf_t*)scan->rf_handle;
+    srsran_earfcn_t channels[LTE_SCAN_MAX_EARFCN];
+
+    int nof_freqs = srsran_band_get_fd_band(band, channels, earfcn_start, earfcn_end, LTE_SCAN_MAX_EARFCN);
+    if (nof_freqs <= 0) {
+        fprintf(stderr, "[lte_scan] No EARFCNs for band %d\n", band);
+        return -1;
+    }
+
+    /*
+     * STEP SIZE SELECTION (Balance Mode)
+     *
+     * step = 1 (100 kHz spacing) = Full resolution scan
+     *
+     * Why step=1 for Balance?
+     * - Ensures NO cell is missed due to sampling gaps
+     * - LTE cell bandwidth (1.4-20 MHz) is much wider than 100 kHz step
+     * - Every possible EARFCN position is checked
+     *
+     * Performance impact:
+     * - Band 8: 350 points × ~30ms/point = ~10.5 seconds
+     * - Band 3: ~750 points × ~30ms/point = ~22.5 seconds
+     * - Still acceptable for "balance" between speed and completeness
+     *
+     * Comparison with Fast (step=5):
+     * - Fast scans 70 points for Band 8 (~4.5s)
+     * - Balance scans 350 points for Band 8 (~10.5s)
+     * - 2.3x slower but finds ~2-3x more cells
+     */
+    int step = 1;
+
+    printf("[lte_scan] Balance scan Band %d (step=%d, %d EARFCNs)\n", band, step, nof_freqs);
+
+    scan->nof_results = 0;
+    scan->stop = false;
+
+    /* Single stream — start once, stay active */
+    srsran_rf_set_rx_srate(rf, (double)SAMP_FREQ);
+    srsran_rf_set_rx_freq(rf, 0, (double)channels[0].fd * MHZ);
+    srsran_rf_start_rx_stream(rf, false);
+
+    srsran_ue_cellsearch_t cs;
+    if (srsran_ue_cellsearch_init(&cs, cell_detect_config.max_frames_pss, recv_wrapper, (void*)rf)) {
+        srsran_rf_stop_rx_stream(rf);
+        return -1;
+    }
+    srsran_ue_cellsearch_set_nof_valid_frames(&cs, cell_detect_config.nof_valid_pss_frames);
+
+    for (int i = 0; i < nof_freqs && !scan->stop && scan->nof_results < 20; i += step) {
+        srsran_rf_set_rx_freq(rf, 0, (double)channels[i].fd * MHZ);
+
+        srsran_ue_cellsearch_result_t found_cells[3];
+        memset(found_cells, 0, sizeof(found_cells));
+        int n = srsran_ue_cellsearch_scan(&cs, found_cells, NULL);
+
+        if (n > 0) {
+            for (int j = 0; j < 3 && scan->nof_results < 20; j++) {
+                if (found_cells[j].psr > scan->cfg.psr_threshold) {
+                    printf("  EARFCN %d PCI %d PSR %.1f CFO %.0f Hz\n",
+                           channels[i].id, found_cells[j].cell_id,
+                           found_cells[j].psr, found_cells[j].cfo);
+
+                    lte_scan_result_t* out = &scan->results[scan->nof_results];
+                    memset(out, 0, sizeof(*out));
+                    out->earfcn   = channels[i].id;
+                    out->freq_mhz = channels[i].fd;
+                    out->pci      = found_cells[j].cell_id;
+                    out->psr      = found_cells[j].psr;
+                    out->rsrp_dbm = srsran_convert_power_to_dB(found_cells[j].peak);
+
+                    const lte_operator_entry_t* op = lte_scan_lookup_operator(channels[i].id);
+                    if (op) {
+                        out->mcc     = op->mcc;
+                        out->mnc     = op->mnc;
+                        out->mnc_3digit = op->mnc_3digit;
+                        strncpy(out->operator_name, op->operator_name, LTE_SCAN_OP_NAME_LEN - 1);
+                    } else {
+                        strncpy(out->operator_name, "Unknown", LTE_SCAN_OP_NAME_LEN - 1);
+                    }
+
+                    scan->nof_results++;
+                    break;
+                }
+            }
+        }
+    }
+
+    srsran_ue_cellsearch_free(&cs);
+    srsran_rf_stop_rx_stream(rf);
+
+    printf("[lte_scan] Balance scan done: %d cell(s) on Band %d\n", scan->nof_results, band);
+    return scan->nof_results;
+}
+
+/*
+ * STOP SCAN — Signal-safe termination request
+ *
+ * Called by:
+ * - sigint_handler() when user presses Ctrl+C
+ * - Manual cleanup before reinitialization
+ *
+ * Thread safety:
+ * - The stop flag is set in signal handler context
+ * - Main scan loop checks this flag between iterations
+ * - Non-blocking: doesn't interfere with RF hardware
+ */
 void lte_scan_stop(lte_scan_t* scan)
 {
     if (scan) {

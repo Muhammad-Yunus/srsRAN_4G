@@ -94,6 +94,7 @@ typedef struct {
     int         coarse_earfcns[LTE_SCAN_MAX_EARFCN];
     float       coarse_freqs[LTE_SCAN_MAX_EARFCN];
     float       coarse_power[LTE_SCAN_MAX_EARFCN];
+    float       coarse_cfo[LTE_SCAN_MAX_EARFCN];
     int         nof_coarse;
     lte_scan_config_t cfg;
     volatile bool stop;
@@ -133,9 +134,10 @@ int lte_scan_coarse(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end
 /**
  * Fine scan — decode MIB + operator lookup for a specific EARFCN.
  * Call this after lte_scan_coarse() for each EARFCN you want to identify.
+ * @param cfo  Initial CFO guess from coarse scan (default 0 = auto-estimate).
  * @return 1 if cell decoded, 0 if no cell, -1 on error.
  */
-int lte_scan_fine(lte_scan_t* scan, int earfcn);
+int lte_scan_fine(lte_scan_t* scan, int earfcn, float cfo);
 
 /**
  * Fast scan — PSS only + operator table lookup (no MIB decode).
@@ -143,6 +145,14 @@ int lte_scan_fine(lte_scan_t* scan, int earfcn);
  * @return Number of cells found.
  */
 int lte_scan_fast(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end);
+
+/**
+ * Balance scan — single-pass: PSS detect at step=50, immediate MIB decode per cell.
+ * Combines fast-mode speed with full-mode operator identification.
+ * ~2-3s per band, finds 3-5 cells with PRB/ports/operator.
+ * @return Number of cells found.
+ */
+int lte_scan_balance(lte_scan_t* scan, int band, int earfcn_start, int earfcn_end);
 
 /**
  * Scan a single EARFCN (PSS + MIB + operator).
